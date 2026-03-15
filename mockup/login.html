@@ -1,0 +1,502 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesion - QuickOrder</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #FF6B35 0%, #FFA726 100%);
+            padding: 2rem 1rem;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            max-width: 450px;
+            width: 100%;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .login-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .login-header .logo {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header h1 {
+            color: white;
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+        }
+
+        .login-body {
+            padding: 2rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--bg-secondary);
+            padding: 0.5rem;
+            border-radius: var(--radius-md);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            text-align: center;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .form-control {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .form-control input {
+            padding-left: 3rem;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 1rem;
+        }
+
+        .forgot-password a {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: var(--text-light);
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .divider span {
+            padding: 0 1rem;
+            font-size: 0.9rem;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            font-weight: 600;
+        }
+
+        .social-btn:hover {
+            border-color: var(--primary-color);
+            background: rgba(255, 107, 53, 0.05);
+        }
+
+        .social-btn.google {
+            color: #DB4437;
+        }
+
+        .social-btn.facebook {
+            color: #1877F2;
+        }
+
+        .login-footer {
+            text-align: center;
+            padding: 1.5rem 2rem;
+            background: var(--bg-secondary);
+            border-top: 1px solid #eee;
+        }
+
+        .login-footer a {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .back-home {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 1000;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 1rem;
+            }
+
+            .login-body {
+                padding: 1.5rem;
+            }
+
+            .back-home {
+                top: 1rem;
+                left: 1rem;
+            }
+
+            .social-login {
+                flex-direction: column;
+            }
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .password-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        .demo-credentials {
+            background: #E3F2FD;
+            border-left: 4px solid #2196F3;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .demo-credentials h4 {
+            color: #1976D2;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .demo-credentials p {
+            margin: 0.25rem 0;
+            color: #424242;
+        }
+
+        .demo-credentials strong {
+            color: #1565C0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Volver al inicio -->
+    <a href="index.html" class="back-home btn btn-secondary">
+        <i class="fas fa-arrow-left"></i>
+        Volver al Inicio
+    </a>
+
+    <!-- Contenedor -->
+    <div class="login-container">
+        <div class="login-card">
+            <!-- Header -->
+            <div class="login-header">
+                <div class="logo">🍕</div>
+                <h1>Bienvenido a QuickOrder</h1>
+                <p>Accede a tu cuenta para realizar pedidos o reservar mesa</p>
+            </div>
+
+            <!-- Body -->
+            <div class="login-body">
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <div class="tab active" data-tab="login">
+                        <i class="fas fa-sign-in-alt"></i> Iniciar Sesion
+                    </div>
+                    <div class="tab" data-tab="register">
+                        <i class="fas fa-user-plus"></i> Registrarse
+                    </div>
+                </div>
+
+                <!-- Formulario de Login -->
+                <div class="tab-content active" id="login">
+                    <form id="loginForm">
+                        <div class="form-control">
+                            <i class="input-icon fas fa-envelope"></i>
+                            <input type="email" placeholder="Correo electronico" required>
+                        </div>
+
+                        <div class="form-control">
+                            <i class="input-icon fas fa-lock"></i>
+                            <input type="password" id="loginPassword" placeholder="Contrase?a" required>
+                            <i class="password-toggle fas fa-eye" onclick="togglePassword('loginPassword', this)"></i>
+                        </div>
+
+                        <div class="forgot-password">
+                            <a href="#"><i class="fas fa-key"></i> ¿Olvidaste tu contrase?a?</a>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block btn-lg">
+                            <i class="fas fa-sign-in-alt"></i>
+                            O Continua con
+                        </button>
+                    </form>
+
+                    <div class="social-login">
+                        <button class="social-btn google">
+                            <i class="fab fa-google"></i>
+                            Google
+                        </button>
+                        <button class="social-btn facebook">
+                            <i class="fab fa-facebook-f"></i>
+                            Facebook
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Formulario de Registro -->
+                <div class="tab-content" id="register">
+                    <form id="registerForm">
+                        <div class="form-control">
+                            <i class="input-icon fas fa-user"></i>
+                            <input type="text" placeholder="Nombre completo" required>
+                        </div>
+
+                        <div class="form-control">
+                            <i class="input-icon fas fa-envelope"></i>
+                            <input type="email" placeholder="Correo electronico" required>
+                        </div>
+
+                        <div class="form-control">
+                            <i class="input-icon fas fa-phone"></i>
+                            <input type="tel" placeholder="Telefono" required>
+                        </div>
+
+                        <div class="form-control">
+                            <i class="input-icon fas fa-lock"></i>
+                            <input type="password" id="registerPassword" placeholder="Contrase?a" required>
+                            <i class="password-toggle fas fa-eye" onclick="togglePassword('registerPassword', this)"></i>
+                        </div>
+
+                        <div class="form-control">
+                            <i class="input-icon fas fa-lock"></i>
+                            <input type="password" id="confirmPassword" placeholder="Confirmar contrase?a" required>
+                            <i class="password-toggle fas fa-eye" onclick="togglePassword('confirmPassword', this)"></i>
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: flex; align-items: start; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" required style="width: auto; margin-top: 0.25rem;">
+                                <span style="font-size: 0.9rem; color: var(--text-secondary);">
+                                    Acepto los <a href="#" style="color: var(--primary-color); font-weight: 600;">Terminos y Condiciones</a> 
+                                    y la <a href="#" style="color: var(--primary-color); font-weight: 600;">Politica de Privacidad</a>
+                                </span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block btn-lg">
+                            <i class="fas fa-user-plus"></i>
+                            Crear Cuenta
+                        </button>
+                    </form>
+
+                    <div class="divider">
+                        <span>O registrate con</span>
+                    </div>
+
+                    <div class="social-login">
+                        <button class="social-btn google">
+                            <i class="fab fa-google"></i>
+                            Google
+                        </button>
+                        <button class="social-btn facebook">
+                            <i class="fab fa-facebook-f"></i>
+                            Facebook
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="login-footer">
+                <p style="margin: 0; color: var(--text-secondary);">
+                    ?Necesitas ayuda? <a href="contact.html">Contactanos</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cambio entre tabs
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.getAttribute('data-tab');
+                
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === targetTab) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // Toggle password visibility
+        function togglePassword(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // Manejo de formularios (simulación)
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Simulación de login exitoso
+            const notification = document.createElement('div');
+            notification.className = 'alert alert-success';
+            notification.innerHTML = '<i class="fas fa-check-circle"></i> ¡Login exitoso! Redirigiendo...';
+            notification.style.position = 'fixed';
+            notification.style.top = '2rem';
+            notification.style.right = '2rem';
+            notification.style.zIndex = '9999';
+            notification.style.minWidth = '300px';
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                const notification = document.createElement('div');
+                notification.className = 'alert alert-error';
+                notification.innerHTML = '<i class="fas fa-exclamation-circle"></i> Las contraseñas no coinciden';
+                notification.style.position = 'fixed';
+                notification.style.top = '2rem';
+                notification.style.right = '2rem';
+                notification.style.zIndex = '9999';
+                notification.style.minWidth = '300px';
+                document.body.appendChild(notification);
+                
+                setTimeout(() => notification.remove(), 3000);
+                return;
+            }
+            
+            // Simulación de registro exitoso
+            const notification = document.createElement('div');
+            notification.className = 'alert alert-success';
+            notification.innerHTML = '<i class="fas fa-check-circle"></i> ¡Cuenta creada exitosamente! Redirigiendo...';
+            notification.style.position = 'fixed';
+            notification.style.top = '2rem';
+            notification.style.right = '2rem';
+            notification.style.zIndex = '9999';
+            notification.style.minWidth = '300px';
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        });
+
+        // Social login (simulación)
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const provider = btn.classList.contains('google') ? 'Google' : 'Facebook';
+                const notification = document.createElement('div');
+                notification.className = 'alert alert-info';
+                notification.innerHTML = `<i class="fas fa-info-circle"></i> Conectando con ${provider}...`;
+                notification.style.position = 'fixed';
+                notification.style.top = '2rem';
+                notification.style.right = '2rem';
+                notification.style.zIndex = '9999';
+                notification.style.minWidth = '300px';
+                document.body.appendChild(notification);
+                
+                setTimeout(() => notification.remove(), 2000);
+            });
+        });
+    </script>
+</body>
+</html>

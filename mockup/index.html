@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickOrder - Ordena tu comida favorita online</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+	<!-- Cabecera-->
+    <header class="header">
+        <nav class="navbar container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🍕</span>
+                <span>QuickOrder</span>
+            </a>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link active">Inicio</a></li>
+                <li><a href="index.html#menu" class="nav-link">Carta</a></li>
+                <li><a href="reservation.html" class="nav-link">Reservar Mesa</a></li>
+                <li><a href="contact.html" class="nav-link">Contacto</a></li>
+                <li class="cart-badge">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge">3</span>
+                    </a>
+                </li>
+                <li><a href="login.html" class="btn btn-primary btn-sm">Iniciar Sesión</a></li>
+            </ul>
+            
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+	<!-- Principal -->
+    <section class="hero">
+        <div class="hero-content fade-in">
+            <h1 class="hero-title">¡Pide tu comida favorita!</h1>
+            <p class="hero-subtitle">Rápido y seguro. Platos deliciosos esperándote.</p>
+				<div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="#menu" class="btn btn-primary btn-lg">
+                    <i class="fas fa-utensils"></i>
+                    Ver Carta
+                </a>
+                <a href="reservation.html" class="btn btn-secondary btn-lg">
+                    <i class="fas fa-calendar-alt"></i>
+                    Reservar Mesa
+                </a>
+            </div>
+        </div>
+    </section>
+	<!-- Categoría -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Categorías</h2>
+            <p class="section-subtitle">Explora nuestras deliciosas opciones organizadas por categorías</p>
+            
+            <div class="grid grid-4">
+                <!-- Pizzas -->
+                <div class="card fade-in">
+                    <div style="background: linear-gradient(135deg, #FF6B35, #FFA726); height: 150px; display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+                        🍕
+                    </div>
+                    <div class="card-body text-center">
+                        <h3 class="card-title">Pizzas</h3>
+                        <p class="card-text">15 productos</p>
+                        <a href="#menu" class="btn btn-outline btn-sm">Ver más</a>
+                    </div>
+                </div>
+
+                <!-- Ensaladas -->
+                <div class="card fade-in" style="animation-delay: 0.1s;">
+                    <div style="background: linear-gradient(135deg, #4CAF50, #8BC34A); height: 150px; display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+                        🥗
+                    </div>
+                    <div class="card-body text-center">
+                        <h3 class="card-title">Ensaladas</h3>
+                        <p class="card-text">8 productos</p>
+                        <a href="#menu" class="btn btn-outline btn-sm">Ver más</a>
+                    </div>
+                </div>
+
+                <!-- Hamburguesas -->
+                <div class="card fade-in" style="animation-delay: 0.2s;">
+                    <div style="background: linear-gradient(135deg, #FF6B35, #FF8A50); height: 150px; display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+                        🍔
+                    </div>
+                    <div class="card-body text-center">
+                        <h3 class="card-title">Hamburguesas</h3>
+                        <p class="card-text">12 productos</p>
+                        <a href="#menu" class="btn btn-outline btn-sm">Ver más</a>
+                    </div>
+                </div>
+
+                <!-- Postres -->
+                <div class="card fade-in" style="animation-delay: 0.3s;">
+                    <div style="background: linear-gradient(135deg, #FFC107, #FFD54F); height: 150px; display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+                        🍰
+                    </div>
+                    <div class="card-body text-center">
+                        <h3 class="card-title">Postres</h3>
+                        <p class="card-text">10 productos</p>
+                        <a href="#menu" class="btn btn-outline btn-sm">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Favoritos -->
+    <section class="section" id="menu" style="background-color: var(--bg-secondary);">
+        <div class="container">
+            <h2 class="section-title">Productos Destacados</h2>
+            <p class="section-subtitle">Los favoritos de nuestros clientes</p>
+            
+            <div class="grid grid-3">
+                <!-- Producto 1 -->
+                <div class="card">
+                    <div style="position: relative;">
+                        <div style="background: linear-gradient(135deg, rgba(255,107,53,0.9), rgba(255,138,80,0.9)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect fill=%22%23ddd%22 width=%22400%22 height=%22300%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2248%22 fill=%22%23999%22>🍕</text></svg>'); height: 200px; background-size: cover; background-position: center;"></div>
+                        <span class="badge" style="position: absolute; top: 10px; right: 10px;">Destacado</span>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Pizza Margarita</h3>
+                        <p class="card-text">Pizza clásica con tomate, mozzarella fresca y albahaca</p>
+                        <div class="d-flex justify-between align-center" style="margin-top: 1rem;">
+                            <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary-color);">€12.99</span>
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-cart-plus"></i>
+                                Añadir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 2 -->
+                <div class="card">
+                    <div style="position: relative;">
+                        <div style="background: linear-gradient(135deg, rgba(76,175,80,0.9), rgba(139,195,74,0.9)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect fill=%22%23ddd%22 width=%22400%22 height=%22300%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2248%22 fill=%22%23999%22>🥗</text></svg>'); height: 200px; background-size: cover; background-position: center;"></div>
+                        <span class="badge badge-success" style="position: absolute; top: 10px; right: 10px;">Nuevo</span>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Ensalada César</h3>
+                        <p class="card-text">Lechuga romana, pollo a la parrilla, parmesano y crutones</p>
+                        <div class="d-flex justify-between align-center" style="margin-top: 1rem;">
+                            <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary-color);">€9.99</span>
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-cart-plus"></i>
+                                Añadir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 3 -->
+                <div class="card">
+                    <div style="position: relative;">
+                        <div style="background: linear-gradient(135deg, rgba(255,107,53,0.9), rgba(229,90,43,0.9)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect fill=%22%23ddd%22 width=%22400%22 height=%22300%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2248%22 fill=%22%23999%22>🍔</text></svg>'); height: 200px; background-size: cover; background-position: center;"></div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Hamburguesa BBQ</h3>
+                        <p class="card-text">Carne Angus, bacon crujiente, queso cheddar y salsa BBQ</p>
+                        <div class="d-flex justify-between align-center" style="margin-top: 1rem;">
+                            <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary-color);">€14.99</span>
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-cart-plus"></i>
+                                Añadir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 4 -->
+                <div class="card">
+                    <div style="position: relative;">
+                        <div style="background: linear-gradient(135deg, rgba(33,150,243,0.9), rgba(66,165,245,0.9)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect fill=%22%23ddd%22 width=%22400%22 height=%22300%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2248%22 fill=%22%23999%22>🍝</text></svg>'); height: 200px; background-size: cover; background-position: center;"></div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Pasta Carbonara</h3>
+                        <p class="card-text">Espaguetis con panceta, huevo, parmesano y pimienta negra</p>
+                        <div class="d-flex justify-between align-center" style="margin-top: 1rem;">
+                            <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary-color);">€11.99</span>
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-cart-plus"></i>
+                                Añadir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 5 -->
+                <div class="card">
+                    <div style="position: relative;">
+                        <div style="background: linear-gradient(135deg, rgba(255,193,7,0.9), rgba(255,213,79,0.9)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect fill=%22%23ddd%22 width=%22400%22 height=%22300%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2248%22 fill=%22%23999%22>🍰</text></svg>'); height: 200px; background-size: cover; background-position: center;"></div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Tiramisú</h3>
+                        <p class="card-text">Postre italiano con café, mascarpone y cacao</p>
+                        <div class="d-flex justify-between align-center" style="margin-top: 1rem;">
+                            <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary-color);">€6.99</span>
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-cart-plus"></i>
+                                Añadir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 6 -->
+                <div class="card">
+                    <div style="position: relative;">
+                        <div style="background: linear-gradient(135deg, rgba(156,39,176,0.9), rgba(186,104,200,0.9)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect fill=%22%23ddd%22 width=%22400%22 height=%22300%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2248%22 fill=%22%23999%22>🥤</text></svg>'); height: 200px; background-size: cover; background-position: center;"></div>
+                        <span class="badge badge-warning" style="position: absolute; top: 10px; right: 10px; color: #333;">Oferta</span>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Smoothie Tropical</h3>
+                        <p class="card-text">Batido de mango, piña, plátano y leche de coco</p>
+                        <div class="d-flex justify-between align-center" style="margin-top: 1rem;">
+                            <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary-color);">€4.99</span>
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-cart-plus"></i>
+                                Añadir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-3">
+                <a href="#menu" class="btn btn-secondary btn-lg">
+                    Ver Carta Completa
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promo -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">¿Por qué elegir QuickOrder?</h2>
+            
+            <div class="grid grid-3">
+                <div class="text-center slide-in-right">
+                    <div style="width: 80px; height: 80px; margin: 0 auto 1rem; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
+                        🚀
+                    </div>
+                    <h3>Entrega Rápida</h3>
+                    <p>Tu comida en menos de 30 minutos o gratis</p>
+                </div>
+
+                <div class="text-center slide-in-right" style="animation-delay: 0.1s;">
+                    <div style="width: 80px; height: 80px; margin: 0 auto 1rem; background: linear-gradient(135deg, var(--success-color), #66BB6A); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
+                        ✅
+                    </div>
+                    <h3>Calidad Garantizada</h3>
+                    <p>Solo ingredientes frescos y de primera calidad</p>
+                </div>
+
+                <div class="text-center slide-in-right" style="animation-delay: 0.2s;">
+                    <div style="width: 80px; height: 80px; margin: 0 auto 1rem; background: linear-gradient(135deg, var(--info-color), #42A5F5); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
+                        💳
+                    </div>
+                    <h3>Pago Seguro</h3>
+                    <p>Múltiples métodos de pago seguros</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Sobre Nosotros -->
+                <div class="footer-section">
+                    <h4>Sobre QuickOrder</h4>
+                    <p style="color: rgba(255,255,255,0.7);">
+                        Tu restaurante online de confianza. Ofrecemos comida deliciosa con entrega rápida y servicio excepcional desde 2026.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Enlaces Rápidos -->
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <div class="footer-links">
+                        <a href="index.html" class="footer-link">Inicio</a>
+                        <a href="index.html#menu" class="footer-link">Menú</a>
+                        <a href="reservation.html" class="footer-link">Reservas</a>
+                        <a href="contact.html" class="footer-link">Contacto</a>
+                        <a href="#" class="footer-link">Sobre Nosotros</a>
+                    </div>
+                </div>
+
+                <!-- Información de Contacto -->
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <div class="footer-links">
+                        <p style="color: rgba(255,255,255,0.7); margin-bottom: 0.5rem;">
+                            <i class="fas fa-map-marker-alt"></i> Calle Gran Vía 123, Madrid
+                        </p>
+                        <p style="color: rgba(255,255,255,0.7); margin-bottom: 0.5rem;">
+                            <i class="fas fa-phone"></i> +34 912 345 678
+                        </p>
+                        <p style="color: rgba(255,255,255,0.7); margin-bottom: 0.5rem;">
+                            <i class="fas fa-envelope"></i> info@quickorder.es
+                        </p>
+                        <p style="color: rgba(255,255,255,0.7);">
+                            <i class="fas fa-clock"></i> Lun-Dom: 11:00 - 23:00
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 QuickOrder. Todos los derechos reservados. | Política de Privacidad | Términos de Uso</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript para menú móvil -->
+    <script>
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = mobileMenuToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Smooth scroll para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

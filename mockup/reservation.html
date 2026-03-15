@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservar Mesa - QuickOrder</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .reservation-hero {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.95), rgba(255, 167, 38, 0.95)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23f0f0f0" width="1200" height="400"/></svg>');
+            background-size: cover;
+            background-position: center;
+            padding: 4rem 0;
+            color: white;
+            text-align: center;
+        }
+
+        .reservation-hero h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .reservation-hero p {
+            font-size: 1.15rem;
+            opacity: 0.95;
+            color: white;
+        }
+
+        .reservation-content {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 2rem;
+            margin-top: -3rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .reservation-form-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            padding: 2.5rem;
+        }
+
+        .reservation-form-card h2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .reservation-form-card > p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .step-indicator::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e0e0e0;
+            z-index: 0;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+        }
+
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            transition: var(--transition-fast);
+        }
+
+        .step.active .step-circle {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .step.completed .step-circle {
+            border-color: var(--success-color);
+            background: var(--success-color);
+            color: white;
+        }
+
+        .step-label {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .step.active .step-label {
+            color: var(--primary-color);
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .time-slot {
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--radius-md);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            font-weight: 600;
+        }
+
+        .time-slot:hover {
+            border-color: var(--primary-color);
+            background: rgba(255, 107, 53, 0.05);
+        }
+
+        .time-slot.selected {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .time-slot.unavailable {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: #f5f5f5;
+        }
+
+        .time-slot.unavailable:hover {
+            border-color: #e0e0e0;
+            background: #f5f5f5;
+        }
+
+        .guests-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .guest-option {
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--radius-md);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .guest-option:hover {
+            border-color: var(--primary-color);
+            background: rgba(255, 107, 53, 0.05);
+        }
+
+        .guest-option.selected {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .reservation-summary {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            padding: 2rem;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary-header {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px dashed #e0e0e0;
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .summary-value {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .benefits-list {
+            background: rgba(76, 175, 80, 0.1);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            margin-top: 1.5rem;
+        }
+
+        .benefits-list h4 {
+            color: var(--success-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .benefit-item i {
+            color: var(--success-color);
+            margin-top: 0.25rem;
+        }
+
+        .benefit-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-navigation {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-back {
+            flex: 1;
+        }
+
+        .btn-next {
+            flex: 2;
+        }
+
+        .confirmation-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .confirmation-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            background: var(--success-color);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            animation: scaleUp 0.5s ease-out;
+        }
+
+        @keyframes scaleUp {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .reservation-number {
+            display: inline-block;
+            background: var(--bg-secondary);
+            padding: 1rem 2rem;
+            border-radius: var(--radius-md);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 968px) {
+            .reservation-content {
+                grid-template-columns: 1fr;
+            }
+
+            .reservation-summary {
+                position: static;
+            }
+
+            .time-slots {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .reservation-hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .reservation-form-card {
+                padding: 1.5rem;
+            }
+
+            .step-indicator {
+                font-size: 0.875rem;
+            }
+
+            .time-slots {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .guests-selector {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <nav class="navbar container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🍕</span>
+                <span>QuickOrder</span>
+            </a>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Inicio</a></li>
+                <li><a href="index.html#menu" class="nav-link">Carta</a></li>
+                <li><a href="reservation.html" class="nav-link active">Reservar Mesa</a></li>
+                <li><a href="contact.html" class="nav-link">Contacto</a></li>
+                <li class="cart-badge">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge">3</span>
+                    </a>
+                </li>
+                <li><a href="login.html" class="btn btn-primary btn-sm">Iniciar Sesión</a></li>
+            </ul>
+            
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="reservation-hero">
+        <div class="container">
+            <h1 class="fade-in">Reserva tu Mesa</h1>
+            <p class="fade-in" style="animation-delay: 0.1s;">Asegura tu lugar en QuickOrder y disfruta de una experiencia única</p>
+        </div>
+    </section>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <section class="section">
+        <div class="container reservation-content">
+            <!-- Formulario de Reserva -->
+            <div>
+                <div class="reservation-form-card fade-in">
+                    <h2>Completa tu Reserva</h2>
+                    <p>Sigue los pasos para reservar tu mesa en minutos</p>
+
+                    <!-- Indicador de Pasos -->
+                    <div class="step-indicator">
+                        <div class="step active" data-step="1">
+                            <div class="step-circle">1</div>
+                            <span class="step-label">Fecha y Hora</span>
+                        </div>
+                        <div class="step" data-step="2">
+                            <div class="step-circle">2</div>
+                            <span class="step-label">Comensales</span>
+                        </div>
+                        <div class="step" data-step="3">
+                            <div class="step-circle">3</div>
+                            <span class="step-label">Tus Datos</span>
+                        </div>
+                        <div class="step" data-step="4">
+                            <div class="step-circle">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span class="step-label">Confirmar</span>
+                        </div>
+                    </div>
+
+                    <form id="reservationForm">
+                        <!-- PASO 1: Fecha y Hora -->
+                        <div class="form-step active" data-step="1">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    Selecciona la Fecha
+                                </label>
+                                <input type="date" class="form-control" id="reservationDate" required min="">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-clock"></i>
+                                    Selecciona la Hora
+                                </label>
+                                <div class="time-slots" id="timeSlots">
+                                    <div class="time-slot" data-time="12:00">12:00</div>
+                                    <div class="time-slot" data-time="12:30">12:30</div>
+                                    <div class="time-slot" data-time="13:00">13:00</div>
+                                    <div class="time-slot" data-time="13:30">13:30</div>
+                                    <div class="time-slot" data-time="14:00">14:00</div>
+                                    <div class="time-slot" data-time="14:30">14:30</div>
+                                    <div class="time-slot" data-time="19:00">19:00</div>
+                                    <div class="time-slot" data-time="19:30">19:30</div>
+                                    <div class="time-slot" data-time="20:00">20:00</div>
+                                    <div class="time-slot" data-time="20:30">20:30</div>
+                                    <div class="time-slot" data-time="21:00">21:00</div>
+                                    <div class="time-slot unavailable" data-time="21:30">21:30</div>
+                                    <div class="time-slot" data-time="22:00">22:00</div>
+                                    <div class="time-slot unavailable" data-time="22:30">22:30</div>
+                                </div>
+                            </div>
+
+                            <div class="form-navigation">
+                                <button type="button" class="btn btn-primary btn-next btn-block" onclick="nextStep()">
+                                    Siguiente
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- PASO 2: Número de Comensales -->
+                        <div class="form-step" data-step="2">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-users"></i>
+                                    ¿Cuántas personas sois?
+                                </label>
+                                <div class="guests-selector" id="guestsSelector">
+                                    <div class="guest-option" data-guests="1">1</div>
+                                    <div class="guest-option" data-guests="2">2</div>
+                                    <div class="guest-option" data-guests="3">3</div>
+                                    <div class="guest-option" data-guests="4">4</div>
+                                    <div class="guest-option" data-guests="5">5</div>
+                                    <div class="guest-option" data-guests="6">6</div>
+                                    <div class="guest-option" data-guests="7">7</div>
+                                    <div class="guest-option" data-guests="8">8+</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-chair"></i>
+                                    Preferencia de Mesa (Opcional)
+                                </label>
+                                <select class="form-control" id="tablePreference">
+                                    <option value="">Sin preferencia</option>
+                                    <option value="ventana">Junto a la ventana</option>
+                                    <option value="terraza">Terraza</option>
+                                    <option value="interior">Interior</option>
+                                    <option value="privado">Zona privada</option>
+                                </select>
+                            </div>
+
+                            <div class="form-navigation">
+                                <button type="button" class="btn btn-outline btn-back" onclick="prevStep()">
+                                    <i class="fas fa-arrow-left"></i>
+                                    Atrás
+                                </button>
+                                <button type="button" class="btn btn-primary btn-next" onclick="nextStep()">
+                                    Siguiente
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- PASO 3: Datos Personales -->
+                        <div class="form-step" data-step="3">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-user"></i>
+                                    Nombre Completo *
+                                </label>
+                                <input type="text" class="form-control" placeholder="Tu nombre" required minlength="3">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <i class="fas fa-envelope"></i>
+                                        Correo Electrónico *
+                                    </label>
+                                    <input type="email" class="form-control" placeholder="tu@email.com" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <i class="fas fa-phone"></i>
+                                        Teléfono *
+                                    </label>
+                                    <input type="tel" class="form-control" placeholder="+34 XXX XXX XXX" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-comment-alt"></i>
+                                    Comentarios o Solicitudes Especiales
+                                </label>
+                                <textarea class="form-control" placeholder="Alergias, celebración especial, silla para niños..." rows="4" maxlength="250"></textarea>
+                            </div>
+
+                            <div class="form-navigation">
+                                <button type="button" class="btn btn-outline btn-back" onclick="prevStep()">
+                                    <i class="fas fa-arrow-left"></i>
+                                    Atrás
+                                </button>
+                                <button type="button" class="btn btn-primary btn-next" onclick="nextStep()">
+                                    Siguiente
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- PASO 4: Confirmación -->
+                        <div class="form-step" data-step="4">
+                            <div class="confirmation-card">
+                                <div class="confirmation-icon">
+                                    ✓
+                                </div>
+                                <h2 style="color: var(--success-color);">¡Reserva Confirmada!</h2>
+                                <p style="font-size: 1.1rem; margin: 1rem 0;">Tu mesa ha sido reservada exitosamente</p>
+                                
+                                <div class="reservation-number">
+                                    #RES-20260219-0001
+                                </div>
+
+                                <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: var(--radius-md); margin: 2rem 0; text-align: left;">
+                                    <h4 style="margin-bottom: 1rem;">Detalles de tu Reserva</h4>
+                                    <div style="display: grid; gap: 0.75rem;">
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <span style="color: var(--text-secondary);">📅 Fecha:</span>
+                                            <strong id="confirmDate">-</strong>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <span style="color: var(--text-secondary);">🕐 Hora:</span>
+                                            <strong id="confirmTime">-</strong>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <span style="color: var(--text-secondary);">👥 Comensales:</span>
+                                            <strong id="confirmGuests">-</strong>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <span style="color: var(--text-secondary);">🪑 Mesa:</span>
+                                            <strong id="confirmTable">-</strong>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert-info">
+                                    <i class="fas fa-info-circle"></i>
+                                    Hemos enviado un correo de confirmación con todos los detalles
+                                </div>
+
+                                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                                    <a href="index.html" class="btn btn-outline" style="flex: 1;">
+                                        <i class="fas fa-home"></i>
+                                        Volver al Inicio
+                                    </a>
+                                    <a href="index.html#menu" class="btn btn-primary" style="flex: 1;">
+                                        <i class="fas fa-utensils"></i>
+                                        Ver Menú
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Resumen de Reserva -->
+            <div>
+                <div class="reservation-summary fade-in" style="animation-delay: 0.1s;">
+                    <div class="summary-header">
+                        <div class="summary-icon">📅</div>
+                        <h3>Resumen de Reserva</h3>
+                    </div>
+
+                    <div id="summaryContent">
+                        <div class="summary-item">
+                            <span class="summary-label">
+                                <i class="fas fa-calendar-alt"></i>
+                                Fecha
+                            </span>
+                            <span class="summary-value" id="summaryDate">-</span>
+                        </div>
+
+                        <div class="summary-item">
+                            <span class="summary-label">
+                                <i class="fas fa-clock"></i>
+                                Hora
+                            </span>
+                            <span class="summary-value" id="summaryTime">-</span>
+                        </div>
+
+                        <div class="summary-item">
+                            <span class="summary-label">
+                                <i class="fas fa-users"></i>
+                                Comensales
+                            </span>
+                            <span class="summary-value" id="summaryGuests">-</span>
+                        </div>
+
+                        <div class="summary-item">
+                            <span class="summary-label">
+                                <i class="fas fa-chair"></i>
+                                Mesa
+                            </span>
+                            <span class="summary-value" id="summaryTable">-</span>
+                        </div>
+                    </div>
+
+                    <div class="benefits-list">
+                        <h4>
+                            <i class="fas fa-gift"></i>
+                            Beneficios de Reservar
+                        </h4>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Mesa garantizada sin esperas</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Postre de cortesía incluido</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Cancelación gratuita hasta 6h antes</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Atención personalizada</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sobre QuickOrder</h4>
+                    <p style="color: rgba(255,255,255,0.7);">
+                        Tu restaurante online de confianza. Ofrecemos comida deliciosa con entrega rápida y servicio excepcional desde 2026.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <div class="footer-links">
+                        <a href="index.html" class="footer-link">Inicio</a>
+                        <a href="index.html#menu" class="footer-link">Menú</a>
+                        <a href="reservation.html" class="footer-link">Reservar Mesa</a>
+                        <a href="contact.html" class="footer-link">Contacto</a>
+                        <a href="#" class="footer-link">Sobre Nosotros</a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <div class="footer-links">
+                        <p style="color: rgba(255,255,255,0.7); margin-bottom: 0.5rem;">
+                            <i class="fas fa-map-marker-alt"></i> Calle Gran Vía 123, Madrid
+                        </p>
+                        <p style="color: rgba(255,255,255,0.7); margin-bottom: 0.5rem;">
+                            <i class="fas fa-phone"></i> +34 912 345 678
+                        </p>
+                        <p style="color: rgba(255,255,255,0.7); margin-bottom: 0.5rem;">
+                            <i class="fas fa-envelope"></i> info@quickorder.es
+                        </p>
+                        <p style="color: rgba(255,255,255,0.7);">
+                            <i class="fas fa-clock"></i> Lun-Dom: 11:00 - 23:00
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 QuickOrder. Todos los derechos reservados. | Política de Privacidad | Términos de Uso</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentStep = 1;
+        let reservationData = {
+            date: '',
+            time: '',
+            guests: '',
+            table: 'Sin preferencia'
+        };
+
+        // Menú móvil
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = mobileMenuToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Configurar fecha mínima (hoy)
+        const dateInput = document.getElementById('reservationDate');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+
+        // Selección de hora
+        document.querySelectorAll('.time-slot:not(.unavailable)').forEach(slot => {
+            slot.addEventListener('click', function() {
+                document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                this.classList.add('selected');
+                reservationData.time = this.dataset.time;
+                updateSummary();
+            });
+        });
+
+        // Selección de comensales
+        document.querySelectorAll('.guest-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.guest-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                reservationData.guests = this.dataset.guests;
+                updateSummary();
+            });
+        });
+
+        // Cambio de fecha
+        dateInput.addEventListener('change', function() {
+            reservationData.date = this.value;
+            updateSummary();
+        });
+
+        // Cambio de preferencia de mesa
+        document.getElementById('tablePreference').addEventListener('change', function() {
+            reservationData.table = this.options[this.selectedIndex].text;
+            updateSummary();
+        });
+
+        function nextStep() {
+            // Validaciones
+            if (currentStep === 1) {
+                if (!reservationData.date || !reservationData.time) {
+                    showNotification('Por favor selecciona fecha y hora', 'warning');
+                    return;
+                }
+            }
+            if (currentStep === 2) {
+                if (!reservationData.guests) {
+                    showNotification('Por favor selecciona el número de comensales', 'warning');
+                    return;
+                }
+            }
+            if (currentStep === 3) {
+                // Validar formulario
+                const form = document.getElementById('reservationForm');
+                const inputs = form.querySelectorAll('.form-step.active input[required]');
+                let valid = true;
+                inputs.forEach(input => {
+                    if (!input.value) valid = false;
+                });
+                if (!valid) {
+                    showNotification('Por favor completa todos los campos obligatorios', 'warning');
+                    return;
+                }
+                
+                // Actualizar confirmación
+                updateConfirmation();
+            }
+
+            if (currentStep < 4) {
+                currentStep++;
+                updateSteps();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateSteps();
+            }
+        }
+
+        function updateSteps() {
+            // Actualizar indicadores
+            document.querySelectorAll('.step').forEach((step, index) => {
+                const stepNum = index + 1;
+                step.classList.remove('active', 'completed');
+                if (stepNum === currentStep) {
+                    step.classList.add('active');
+                } else if (stepNum < currentStep) {
+                    step.classList.add('completed');
+                }
+            });
+
+            // Actualizar formulario
+            document.querySelectorAll('.form-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('active');
+        }
+
+        function updateSummary() {
+            document.getElementById('summaryDate').textContent = reservationData.date ? 
+                new Date(reservationData.date + 'T00:00:00').toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'long', year: 'numeric' }) : '-';
+            document.getElementById('summaryTime').textContent = reservationData.time || '-';
+            document.getElementById('summaryGuests').textContent = reservationData.guests ? `${reservationData.guests} ${reservationData.guests === '1' ? 'persona' : 'personas'}` : '-';
+            document.getElementById('summaryTable').textContent = reservationData.table || '-';
+        }
+
+        function updateConfirmation() {
+            document.getElementById('confirmDate').textContent = 
+                new Date(reservationData.date + 'T00:00:00').toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+            document.getElementById('confirmTime').textContent = reservationData.time;
+            document.getElementById('confirmGuests').textContent = `${reservationData.guests} ${reservationData.guests === '1' ? 'persona' : 'personas'}`;
+            document.getElementById('confirmTable').textContent = reservationData.table;
+        }
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type}`;
+            notification.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+            notification.style.position = 'fixed';
+            notification.style.top = '2rem';
+            notification.style.right = '2rem';
+            notification.style.zIndex = '9999';
+            notification.style.minWidth = '300px';
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.remove(), 3000);
+        }
+    </script>
+</body>
+</html>
