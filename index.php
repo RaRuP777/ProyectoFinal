@@ -19,23 +19,46 @@ if ($categories_result) {
     }
 }
 
-// --- Obtener productos destacados ---
-$featured_query = "SELECT p.*, c.name as category_name 
-                   FROM products p 
-                   LEFT JOIN categories c ON p.category_id = c.id
-                   WHERE p.is_featured = 1
-                   ORDER BY p.created_at DESC
-                   LIMIT 6";
-$featured_result = mysqli_query($conn, $featured_query);
+// --- Categoría seleccionada desde la propia portada ---
+$selected_category_id = isset($_GET['category']) ? (int)$_GET['category'] : 0;
+$selected_category_name = '';
+if ($selected_category_id > 0) {
+    foreach ($categories as $cat_row) {
+        if ((int)$cat_row['id'] === $selected_category_id) {
+            $selected_category_name = $cat_row['name'];
+            break;
+        }
+    }
+}
+
+// --- Obtener productos para la sección menú ---
 $featured_products = [];
-if ($featured_result) {
-    while ($row = mysqli_fetch_assoc($featured_result)) {
+
+if ($selected_category_id > 0) {
+    $products_query = "SELECT p.*, c.name as category_name
+                       FROM products p
+                       LEFT JOIN categories c ON p.category_id = c.id
+                       WHERE p.category_id = {$selected_category_id}
+                       ORDER BY p.is_featured DESC, p.created_at DESC
+                       LIMIT 12";
+} else {
+    $products_query = "SELECT p.*, c.name as category_name 
+                       FROM products p 
+                       LEFT JOIN categories c ON p.category_id = c.id
+                       WHERE p.is_featured = 1
+                       ORDER BY p.created_at DESC
+                       LIMIT 6";
+}
+
+$products_result = mysqli_query($conn, $products_query);
+if ($products_result) {
+    while ($row = mysqli_fetch_assoc($products_result)) {
         $featured_products[] = $row;
     }
 }
 
-// Si no hay destacados, traer los más recientes
-if (empty($featured_products)) {
+// Si no hay productos destacados y no hay filtro, traer los más recientes
+if (empty($featured_products) && $selected_category_id === 0) {
     $recent_query = "SELECT p.*, c.name as category_name 
                      FROM products p 
                      LEFT JOIN categories c ON p.category_id = c.id
@@ -163,7 +186,7 @@ require_once 'includes/header.php';
                 $delay = $i * 0.1;
             ?>
             <div class="category-card card fade-in" style="animation-delay: <?= $delay ?>s; cursor: pointer;"
-                 onclick="window.location.href='<?= SITE_URL ?>/menu.php?category=<?= $cat['id'] ?>'">
+                 onclick="window.location.href='<?= SITE_URL ?>/index.php?category=<?= $cat['id'] ?>#menu'">
                 <!-- Imagen / Gradiente con emoji -->
                 <?php if (!empty($cat['image']) && file_exists('uploads/categories/' . $cat['image'])): ?>
                     <div class="category-card-img" style="height:150px; overflow:hidden; position:relative;">
@@ -187,7 +210,7 @@ require_once 'includes/header.php';
                     <p class="card-text" style="font-size:0.9rem; margin-bottom:0.75rem;">
                         <?= (int)$cat['product_count'] ?> producto<?= $cat['product_count'] != 1 ? 's' : '' ?>
                     </p>
-                    <a href="<?= SITE_URL ?>/menu.php?category=<?= $cat['id'] ?>" class="btn btn-outline btn-sm"
+                    <a href="<?= SITE_URL ?>/index.php?category=<?= $cat['id'] ?>#menu" class="btn btn-outline btn-sm"
                        onclick="event.stopPropagation();">
                         Ver más
                     </a>
@@ -209,14 +232,14 @@ require_once 'includes/header.php';
             foreach ($sample_cats as $i => $cat):
             ?>
             <div class="category-card card fade-in" style="animation-delay: <?= $i * 0.1 ?>s; cursor:pointer;"
-                 onclick="window.location.href='<?= SITE_URL ?>/menu.php?category=<?= $cat['id'] ?>'">
+                 onclick="window.location.href='<?= SITE_URL ?>/index.php?category=<?= $cat['id'] ?>#menu'">
                 <div class="category-card-img" style="background: <?= $cat['gradient'] ?>; height:150px; display:flex; align-items:center; justify-content:center; font-size:4rem;">
                     <?= $cat['emoji'] ?>
                 </div>
                 <div class="card-body text-center">
                     <h3 class="card-title" style="font-size:1.1rem; margin-bottom:0.35rem;"><?= $cat['name'] ?></h3>
                     <p class="card-text" style="font-size:0.9rem; margin-bottom:0.75rem;"><?= $cat['count'] ?> productos</p>
-                    <a href="<?= SITE_URL ?>/menu.php?category=<?= $cat['id'] ?>" class="btn btn-outline btn-sm">Ver más</a>
+                    <a href="<?= SITE_URL ?>/index.php?category=<?= $cat['id'] ?>#menu" class="btn btn-outline btn-sm">Ver más</a>
                 </div>
             </div>
             <?php endforeach; ?>
@@ -228,8 +251,18 @@ require_once 'includes/header.php';
 <!-- PRODUCTOS DESTACADOS -->
 <section class="section" id="menu" style="background-color: var(--bg-secondary);">
     <div class="container">
-        <h2 class="section-title">Productos Destacados</h2>
-        <p class="section-subtitle">Los favoritos de nuestros clientes, elaborados con los mejores ingredientes</p>
+        <h2 class="section-title"><?= $selected_category_name ? 'Menú: ' . htmlspecialchars($selected_category_name) : 'Productos Destacados' ?></h2>
+        <p class="section-subtitle">
+            <?= $selected_category_name
+                ? 'Mostrando productos de la categoría seleccionada.'
+                : 'Los favoritos de nuestros clientes, elaborados con los mejores ingredientes' ?>
+        </p>
+
+        <?php if ($selected_category_name): ?>
+        <div style="text-align:center; margin-bottom:1.5rem;">
+            <a href="<?= SITE_URL ?>/index.php#menu" class="btn btn-outline btn-sm">Ver todas las categorías</a>
+        </div>
+        <?php endif; ?>
 
         <?php if (!empty($featured_products)): ?>
         <div class="grid grid-3" style="gap: 1.5rem;">
@@ -293,7 +326,7 @@ require_once 'includes/header.php';
         </div>
 
         <div style="text-align:center; margin-top:2.5rem;">
-            <a href="<?= SITE_URL ?>/menu.php" class="btn btn-primary btn-lg">
+            <a href="<?= SITE_URL ?>/index.php#menu" class="btn btn-primary btn-lg">
                 <i class="fas fa-utensils"></i> Ver Menú Completo
             </a>
         </div>
