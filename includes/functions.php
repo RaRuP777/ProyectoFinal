@@ -183,3 +183,24 @@ function get_setting(string $key, $default = null) {
 
     return $default;
 }
+
+function redirect(string $path = ''): void {
+    $site = defined('SITE_URL') ? rtrim(SITE_URL, '/') : '';
+    $path = trim($path);
+
+    if ($path !== '' && preg_match('#^https?://#i', $path)) {
+        header('Location: ' . $path);
+        exit;
+    }
+
+    if ($path === '') {
+        $target = $site ?: '/';
+    } elseif ($path[0] === '/') {
+        $target = $site . $path;
+    } else {
+        $target = $site . '/' . $path;
+    }
+
+    header('Location: ' . $target);
+    exit;
+}
