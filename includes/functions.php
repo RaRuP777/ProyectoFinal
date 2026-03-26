@@ -165,3 +165,21 @@ function paginate(int $total, int $per_page, int $current): array {
         'next'        => $current + 1,
     ];
 }
+
+function get_setting(string $key, $default = null) {
+    global $conn;
+
+    if (!isset($conn) || !($conn instanceof mysqli)) {
+        return $default;
+    }
+
+    $key_escaped = mysqli_real_escape_string($conn, $key);
+    $sql = "SELECT setting_value FROM settings WHERE setting_key = '$key_escaped' LIMIT 1";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result && $row = mysqli_fetch_assoc($result)) {
+        return $row['setting_value'];
+    }
+
+    return $default;
+}
