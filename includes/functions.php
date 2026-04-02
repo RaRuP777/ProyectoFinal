@@ -373,6 +373,82 @@ if (!function_exists('get_cart_subtotal')) {
     }
 }
 
+if (!function_exists('get_cart_total')) {
+    function get_cart_total(): float {
+        // Compatibilidad con páginas antiguas como checkout.php
+        // En esta base del proyecto, el total del carrito equivale
+        // al subtotal de líneas; envío/impuestos se calculan aparte.
+        return get_cart_subtotal();
+    }
+}
+
+if (!function_exists('get_cart_items')) {
+    function get_cart_items(): array {
+        return get_cart();
+    }
+}
+
+if (!function_exists('has_cart_items')) {
+    function has_cart_items(): bool {
+        return get_cart_count() > 0;
+    }
+}
+
+if (!function_exists('get_delivery_fee')) {
+    function get_delivery_fee(): float {
+        return (float)get_setting('delivery_fee', 2.50);
+    }
+}
+
+if (!function_exists('get_free_delivery_from')) {
+    function get_free_delivery_from(): float {
+        return (float)get_setting('free_delivery_from', 25.00);
+    }
+}
+
+if (!function_exists('get_min_order_amount')) {
+    function get_min_order_amount(): float {
+        return (float)get_setting('min_order_amount', 10.00);
+    }
+}
+
+if (!function_exists('get_cart_delivery_fee')) {
+    function get_cart_delivery_fee(): float {
+        $subtotal = get_cart_subtotal();
+        if ($subtotal <= 0) {
+            return 0.0;
+        }
+        $freeFrom = get_free_delivery_from();
+        return $subtotal >= $freeFrom ? 0.0 : get_delivery_fee();
+    }
+}
+
+if (!function_exists('get_tax_rate')) {
+    function get_tax_rate(): float {
+        return ((float)get_setting('tax_rate', 10)) / 100;
+    }
+}
+
+if (!function_exists('get_cart_tax_amount')) {
+    function get_cart_tax_amount(bool $includeDelivery = true): float {
+        $base = get_cart_subtotal();
+        if ($includeDelivery) {
+            $base += get_cart_delivery_fee();
+        }
+        return $base * get_tax_rate();
+    }
+}
+
+if (!function_exists('get_cart_grand_total')) {
+    function get_cart_grand_total(bool $includeTax = false): float {
+        $total = get_cart_subtotal() + get_cart_delivery_fee();
+        if ($includeTax) {
+            $total += get_cart_tax_amount(true);
+        }
+        return $total;
+    }
+}
+
 if (!function_exists('clear_cart')) {
     function clear_cart(): void {
         $_SESSION['cart'] = [];
