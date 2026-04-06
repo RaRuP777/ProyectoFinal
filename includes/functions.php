@@ -49,6 +49,13 @@ if (!function_exists('sanitize')) {
     }
 }
 
+if (!function_exists('clean_input')) {
+    function clean_input(?string $input): string {
+        // Alias de compatibilidad para archivos antiguos
+        return trim((string)($input ?? ''));
+    }
+}
+
 if (!function_exists('e')) {
     function e(?string $value): string {
         return htmlspecialchars((string)($value ?? ''), ENT_QUOTES, 'UTF-8');
