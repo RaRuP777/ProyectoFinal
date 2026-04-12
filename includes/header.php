@@ -12,15 +12,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍕</text></svg>">
+    <link rel="icon" type="image/png" href="<?php echo SITE_URL; ?>/assets/img/logo-quickorder.png">
 </head>
 <body>
     <!-- HEADER/NAVEGACIÓN -->
     <header class="header">
         <nav class="navbar container">
-            <a href="<?php echo SITE_URL; ?>/" class="logo">
-                <span class="logo-icon">🍕</span>
-                <span>QuickOrder</span>
+            <a href="<?php echo SITE_URL; ?>/" class="logo" aria-label="QuickOrder - Inicio">
+                <img src="<?php echo SITE_URL; ?>/assets/img/logo-quickorder.png" alt="Logo de QuickOrder" class="logo-image">
+                <span class="logo-text">QuickOrder</span>
             </a>
             
             <ul class="nav-menu" id="navMenu">
