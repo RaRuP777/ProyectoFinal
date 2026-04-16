@@ -80,7 +80,7 @@ function getCategoryEmoji($name) {
         'ensalada'    => ['emoji' => '🥗', 'gradient' => 'linear-gradient(135deg, #4CAF50, #8BC34A)'],
         'hamburguesa' => ['emoji' => '🍔', 'gradient' => 'linear-gradient(135deg, #FF6B35, #FF8A50)'],
         'burger'      => ['emoji' => '🍔', 'gradient' => 'linear-gradient(135deg, #FF6B35, #FF8A50)'],
-        'postre'      => ['emoji' => '🍰', 'gradient' => 'linear-gradient(135deg, #FFC107, #FFD54F)'],
+        'postre'      => ['emoji' => '🍰', 'gradient' => 'linear-gradient(135deg, #AB47BC, #EC407A)'],
         'bebida'      => ['emoji' => '🥤', 'gradient' => 'linear-gradient(135deg, #2196F3, #42A5F5)'],
         'pasta'       => ['emoji' => '🍝', 'gradient' => 'linear-gradient(135deg, #FF8F00, #FFA000)'],
         'sushi'       => ['emoji' => '🍱', 'gradient' => 'linear-gradient(135deg, #E91E63, #F06292)'],
@@ -88,7 +88,7 @@ function getCategoryEmoji($name) {
         'mariscos'    => ['emoji' => '🦐', 'gradient' => 'linear-gradient(135deg, #00BCD4, #4DD0E1)'],
         'sopa'        => ['emoji' => '🍲', 'gradient' => 'linear-gradient(135deg, #795548, #A1887F)'],
         'sandwich'    => ['emoji' => '🥪', 'gradient' => 'linear-gradient(135deg, #FF9800, #FFB74D)'],
-        'pollo'       => ['emoji' => '🍗', 'gradient' => 'linear-gradient(135deg, #FFC107, #FFCA28)'],
+        'pollo'       => ['emoji' => '🍗', 'gradient' => 'linear-gradient(135deg, #8D6E63, #BCAAA4)'],
         'carne'       => ['emoji' => '🥩', 'gradient' => 'linear-gradient(135deg, #B71C1C, #E53935)'],
         'vegano'      => ['emoji' => '🌿', 'gradient' => 'linear-gradient(135deg, #388E3C, #66BB6A)'],
         'desayuno'    => ['emoji' => '🥐', 'gradient' => 'linear-gradient(135deg, #F57F17, #F9A825)'],
@@ -100,7 +100,7 @@ function getCategoryEmoji($name) {
     }
     // default
     $defaults = [
-        ['emoji' => '🍽️', 'gradient' => 'linear-gradient(135deg, #FF6B35, #FFA726)'],
+        ['emoji' => '🍽️', 'gradient' => 'linear-gradient(135deg, #FF6B35, #C84E21)'],
         ['emoji' => '🥘', 'gradient' => 'linear-gradient(135deg, #4CAF50, #8BC34A)'],
         ['emoji' => '🫕', 'gradient' => 'linear-gradient(135deg, #9C27B0, #BA68C8)'],
         ['emoji' => '🍜', 'gradient' => 'linear-gradient(135deg, #2196F3, #42A5F5)'],
@@ -115,30 +115,30 @@ require_once 'includes/header.php';
 <section class="hero">
     <div class="container">
         <div class="hero-content">
-            <span class="badge" style="font-size:1rem; margin-bottom:1.5rem; display:inline-block;">🔥 ¡Pedidos en 30 minutos o menos!</span>
-            <h1 class="hero-title">La mejor comida,<br><span style="color: var(--secondary-color);">entregada en tu puerta</span></h1>
+            <span class="badge hero-badge">🔥 ¡Pedidos en 30 minutos o menos!</span>
+            <h1 class="hero-title">La mejor comida,<br><span class="hero-accent-text">entregada en tu puerta</span></h1>
             <p class="hero-subtitle">Descubre nuestros platos elaborados con ingredientes frescos y de temporada. Desde pizzas artesanales hasta ensaladas gourmet.</p>
             <div class="hero-actions" style="display:flex; gap:1rem; flex-wrap:wrap;">
                 <a href="#menu" class="btn btn-secondary btn-lg">
                     <i class="fas fa-utensils"></i> Ver Menú
                 </a>
-                <a href="reservations.php" class="btn btn-outline btn-lg" style="color:#fff; border-color:#fff;">
+                <a href="reservations.php" class="btn btn-outline-white btn-lg">
                     <i class="fas fa-calendar-alt"></i> Reservar Mesa
                 </a>
             </div>
             <!-- Stats -->
             <div class="hero-stats" style="display:flex; gap:2rem; margin-top:2.5rem; flex-wrap:wrap;">
                 <div class="hero-stat">
-                    <span style="font-size:1.8rem; font-weight:800; color:var(--secondary-color);">500+</span>
-                    <span style="display:block; font-size:0.85rem; opacity:0.85;">Clientes felices</span>
+                    <span class="hero-stat-value">500+</span>
+                    <span class="hero-stat-label">Clientes felices</span>
                 </div>
                 <div class="hero-stat">
-                    <span style="font-size:1.8rem; font-weight:800; color:var(--secondary-color);">30min</span>
-                    <span style="display:block; font-size:0.85rem; opacity:0.85;">Tiempo de entrega</span>
+                    <span class="hero-stat-value">30min</span>
+                    <span class="hero-stat-label">Tiempo de entrega</span>
                 </div>
                 <div class="hero-stat">
-                    <span style="font-size:1.8rem; font-weight:800; color:var(--secondary-color);">4.9⭐</span>
-                    <span style="display:block; font-size:0.85rem; opacity:0.85;">Valoración media</span>
+                    <span class="hero-stat-value">4.9⭐</span>
+                    <span class="hero-stat-label">Valoración media</span>
                 </div>
             </div>
         </div>
@@ -224,10 +224,10 @@ require_once 'includes/header.php';
         <div class="grid grid-4" style="gap: 1.5rem;">
             <?php
             $sample_cats = [
-                ['emoji' => '🍕', 'name' => 'Pizzas',       'count' => 15, 'gradient' => 'linear-gradient(135deg, #FF6B35, #FFA726)', 'id' => 1],
-                ['emoji' => '🥗', 'name' => 'Ensaladas',    'count' => 8,  'gradient' => 'linear-gradient(135deg, #4CAF50, #8BC34A)', 'id' => 2],
-                ['emoji' => '🍔', 'name' => 'Hamburguesas', 'count' => 12, 'gradient' => 'linear-gradient(135deg, #FF6B35, #FF8A50)', 'id' => 3],
-                ['emoji' => '🍰', 'name' => 'Postres',      'count' => 10, 'gradient' => 'linear-gradient(135deg, #FFC107, #FFD54F)', 'id' => 4],
+                ['emoji' => '🍕', 'name' => 'Pizzas',       'count' => 15, 'gradient' => 'linear-gradient(135deg, #FF6B35, #C84E21)', 'id' => 1],
+                ['emoji' => '🥗', 'name' => 'Ensaladas',    'count' => 8,  'gradient' => 'linear-gradient(135deg, #4CAF50, #2E7D32)', 'id' => 2],
+                ['emoji' => '🍔', 'name' => 'Hamburguesas', 'count' => 12, 'gradient' => 'linear-gradient(135deg, #FF6B35, #D65A31)', 'id' => 3],
+                ['emoji' => '🍰', 'name' => 'Postres',      'count' => 10, 'gradient' => 'linear-gradient(135deg, #AB47BC, #EC407A)', 'id' => 4],
             ];
             foreach ($sample_cats as $i => $cat):
             ?>

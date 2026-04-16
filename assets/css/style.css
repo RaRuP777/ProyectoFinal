@@ -7,9 +7,14 @@
 :root {
     /* Paleta de colores principal */
     --primary-color: #FF6B35;
-    --primary-dark: #E55A2B;
-    --secondary-color: #FFA726;
-    --accent-color: #FF8A50;
+    --primary-dark: #C84E21;
+    --secondary-color: #2E7D32;
+    --accent-color: #66BB6A;
+    --hero-bg-start: #B8421C;
+    --hero-bg-end: #7A2D14;
+    --hero-highlight: #FFF7F0;
+    --hero-soft-surface: rgba(255, 255, 255, 0.14);
+    --surface-warm: #FFF4EE;
     
     /* Colores de estado */
     --success-color: #4CAF50;
@@ -266,14 +271,17 @@ p {
 }
 
 .btn-secondary {
-    background-color: transparent;
-    color: var(--primary-color);
-    border-color: var(--primary-color);
+    background-color: rgba(255, 255, 255, 0.96);
+    color: var(--primary-dark);
+    border-color: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
 }
 
 .btn-secondary:hover {
-    background-color: var(--primary-color);
-    color: var(--text-white);
+    background-color: var(--surface-warm);
+    color: var(--primary-dark);
+    border-color: var(--surface-warm);
+    transform: translateY(-2px);
 }
 
 .btn-outline {
@@ -284,7 +292,8 @@ p {
 
 .btn-outline:hover {
     border-color: var(--primary-color);
-    color: var(--primary-color);
+    color: var(--primary-dark);
+    background-color: rgba(255, 107, 53, 0.08);
 }
 
 .btn-success {
@@ -309,8 +318,8 @@ p {
 /* === HERO SECTION === */
 .hero {
     position: relative;
-    height: 500px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    min-height: 500px;
+    background: linear-gradient(135deg, var(--hero-bg-start) 0%, var(--primary-color) 48%, var(--hero-bg-end) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -328,29 +337,76 @@ p {
     bottom: 0;
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><path fill="rgba(255,255,255,0.05)" d="M0,200 Q300,100 600,200 T1200,200 L1200,600 L0,600 Z"/></svg>');
     background-size: cover;
-    opacity: 0.3;
+    opacity: 0.22;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.28));
 }
 
 .hero-content {
     position: relative;
-    z-index: 1;
-    max-width: 800px;
+    z-index: 2;
+    max-width: 860px;
     padding: var(--spacing-xl);
 }
 
 .hero-title {
     font-size: 3rem;
-    font-weight: 700;
+    font-weight: 800;
     margin-bottom: var(--spacing-md);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
     color: var(--text-white);
 }
 
 .hero-subtitle {
     font-size: 1.25rem;
     margin-bottom: var(--spacing-lg);
-    opacity: 0.95;
-    color: var(--text-white);
+    opacity: 0.98;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.hero-badge {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.16);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+}
+
+.hero-accent-text {
+    color: var(--hero-highlight);
+    text-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+    border-bottom: 4px solid rgba(255, 255, 255, 0.28);
+    padding-bottom: 0.1em;
+}
+
+.hero-stat {
+    background: var(--hero-soft-surface);
+    border-radius: var(--radius-md);
+    padding: 0.9rem 1.5rem;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.14);
+}
+
+.hero-stat-value {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    line-height: 1.1;
+}
+
+.hero-stat-label {
+    display: block;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.88);
+    margin-top: 0.2rem;
 }
 
 /* === CARDS === */
@@ -852,21 +908,24 @@ p {
 
 /* Hero stats */
 .hero-stat {
-    background: rgba(255,255,255,0.12);
+    background: var(--hero-soft-surface);
     border-radius: var(--radius-md);
-    padding: 0.75rem 1.5rem;
-    backdrop-filter: blur(4px);
+    padding: 0.9rem 1.5rem;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.14);
 }
 
 /* Botón outline blanco en hero */
 .btn-outline-white {
-    border: 2px solid #fff;
+    border: 2px solid rgba(255,255,255,0.88);
     color: #fff;
-    background: transparent;
+    background: rgba(255,255,255,0.06);
 }
 
 .btn-outline-white:hover {
-    background: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.16);
+    color: #fff;
+    border-color: #fff;
 }
 
 /* Responsive categorías */
