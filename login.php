@@ -135,28 +135,7 @@ include 'includes/header.php';
                 <p>¿No tienes una cuenta? <a href="<?= SITE_URL ?>/register.php">Regístrate aquí</a></p>
             </div>
 
-            <!-- Credenciales de prueba -->
-            <div class="test-credentials">
-                <h3><i class="fas fa-info-circle"></i> Credenciales de Prueba</h3>
-                <div class="credentials-grid">
-                    <div class="credential-item">
-                        <strong>👨‍💼 Administrador:</strong><br>
-                        <code>admin@quickorder.com</code><br>
-                        <code>admin123</code>
-                        <button class="btn-copy" onclick="fillCredentials('admin@quickorder.com', 'admin123')">
-                            <i class="fas fa-copy"></i> Copiar
-                        </button>
-                    </div>
-                    <div class="credential-item">
-                        <strong>👤 Cliente:</strong><br>
-                        <code>cliente@example.com</code><br>
-                        <code>cliente123</code>
-                        <button class="btn-copy" onclick="fillCredentials('cliente@example.com', 'cliente123')">
-                            <i class="fas fa-copy"></i> Copiar
-                        </button>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>
@@ -327,52 +306,6 @@ document.getElementById('remember').checked = true;
 
 .auth-footer a:hover {
     text-decoration: underline;
-}
-
-/* Credenciales de prueba */
-.test-credentials {
-    background: #f8f9fa;
-    padding: 20px;
-    margin: 0 40px 40px;
-    border-radius: 10px;
-    border: 2px dashed #ddd;
-}
-
-.test-credentials h3 {
-    margin: 0 0 15px 0;
-    font-size: 16px;
-    color: #666;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.credentials-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-
-.credential-item {
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 13px;
-    line-height: 1.8;
-}
-
-.credential-item strong {
-    display: block;
-    margin-bottom: 8px;
-    color: #333;
-}
-
-.credential-item code {
-    background: #f0f0f0;
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-family: monospace;
-    color: var(--primary-color);
 }
 
 .btn-copy {
