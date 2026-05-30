@@ -1,10 +1,6 @@
 <?php
 // ============================================================
 // QuickOrder — includes/functions.php
-// Versión completa de helpers para evitar errores de funciones
-// faltantes en login, logout, contact, reservations, cart,
-// my-orders, admin y otras páginas del proyecto.
-// Compatible con PHP 8+
 // ============================================================
 
 if (session_status() === PHP_SESSION_NONE) {
