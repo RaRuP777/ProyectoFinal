@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Redirigir para evitar reenvío de formulario (PRG pattern)
     if ($action === 'add') {
-        $back = $_SERVER['HTTP_REFERER'] ?? (SITE_URL . '/index.php');
+        $back = $_SERVER['HTTP_REFERER'] ?? ('/index.php');
         header('Location: ' . $back);
         exit;
     }
@@ -207,7 +207,7 @@ require_once 'includes/header.php';
     <p style="color:var(--text-secondary);margin-bottom:2rem;">
       Añade productos desde nuestro menú y aparecerán aquí.
     </p>
-    <a href="<?= SITE_URL ?>/index.php#menu" class="btn btn-primary btn-lg">
+    <a href="/index.php#menu" class="btn btn-primary btn-lg">
       <i class="fas fa-utensils"></i> Ver Menú
     </a>
   </div>
@@ -250,7 +250,7 @@ require_once 'includes/header.php';
           <!-- Imagen / Emoji -->
           <div style="flex-shrink:0;width:80px;height:80px;border-radius:10px;overflow:hidden;">
             <?php if ($has_image): ?>
-              <img src="<?= SITE_URL ?>/uploads/products/<?= htmlspecialchars($item['image']) ?>"
+              <img src="/uploads/products/<?= htmlspecialchars($item['image']) ?>"
                    alt="<?= htmlspecialchars($item['name']) ?>"
                    style="width:100%;height:100%;object-fit:cover;">
             <?php else: ?>
@@ -310,7 +310,7 @@ require_once 'includes/header.php';
       </div>
       <?php endforeach; ?>
 
-      <a href="<?= SITE_URL ?>/index.php#menu"
+      <a href="/index.php#menu"
          style="display:inline-flex;align-items:center;gap:.5rem;
                 color:var(--primary-color);text-decoration:none;font-size:.9rem;
                 margin-top:.5rem;">
@@ -370,7 +370,7 @@ require_once 'includes/header.php';
 
         <!-- Botón checkout -->
         <?php if ($subtotal >= $min_order): ?>
-          <a href="<?= SITE_URL ?>/checkout.php" class="btn btn-primary"
+          <a href="/checkout.php" class="btn btn-primary"
              style="display:block;text-align:center;width:100%;padding:.85rem;">
             <i class="fas fa-credit-card"></i> Proceder al pago
           </a>
@@ -412,7 +412,7 @@ require_once 'includes/header.php';
       <!-- Imagen -->
       <div style="height:130px;overflow:hidden;">
         <?php if ($sg_has_img): ?>
-          <img src="<?= SITE_URL ?>/uploads/products/<?= htmlspecialchars($sg['image']) ?>"
+          <img src="/uploads/products/<?= htmlspecialchars($sg['image']) ?>"
                alt="<?= htmlspecialchars($sg['name']) ?>"
                style="width:100%;height:100%;object-fit:cover;">
         <?php else: ?>

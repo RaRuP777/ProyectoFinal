@@ -4,7 +4,7 @@ require_once 'includes/functions.php';
 
 // Verificar que el usuario esté logueado
 if (!is_logged_in()) {
-    redirect(SITE_URL . '/login.php');
+    redirect('/login.php');
 }
 
 // Guardar nombre antes de destruir la sesión
@@ -33,5 +33,5 @@ session_start();
 set_alert('success', '¡Hasta pronto, ' . $user_name . '!');
 
 // Redirigir al inicio
-redirect(SITE_URL . '/');
+redirect('/');
 ?>

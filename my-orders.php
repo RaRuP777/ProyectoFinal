@@ -184,7 +184,7 @@ require_once 'includes/header.php';
     <?php if ($filter_status): ?>
       <a href="my-orders.php" class="btn btn-primary">Ver todos los pedidos</a>
     <?php else: ?>
-      <a href="<?= SITE_URL ?>/index.php#menu" class="btn btn-primary btn-lg">
+      <a href="/index.php#menu" class="btn btn-primary btn-lg">
         <i class="fas fa-utensils"></i> Ver Menú
       </a>
     <?php endif; ?>
@@ -349,12 +349,12 @@ require_once 'includes/header.php';
 
         <!-- Botones de acción -->
         <div style="display:flex;flex-direction:column;gap:.5rem;flex-shrink:0;">
-          <a href="<?= SITE_URL ?>/order-detail.php?id=<?= $order['id'] ?>"
+          <a href="/order-detail.php?id=<?= $order['id'] ?>"
              class="btn btn-outline btn-sm">
             <i class="fas fa-eye"></i> Ver detalle
           </a>
           <?php if (in_array($order['status'], ['delivered'])): ?>
-          <a href="<?= SITE_URL ?>/index.php#menu"
+          <a href="/index.php#menu"
              class="btn btn-primary btn-sm">
             🔄 Repetir pedido
           </a>

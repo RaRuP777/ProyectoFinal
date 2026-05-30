@@ -50,9 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt->execute()) {
             set_alert('success', '¡Mensaje enviado exitosamente! Te responderemos pronto.');
             
-            // Opcional: Enviar email al admin (si tienes configurado mail)
-            // mail(SITE_EMAIL, "Nuevo mensaje de contacto: $subject", $message, "From: $email");
-            
             redirect('/contact.php');
         } else {
             set_alert('error', 'Error al enviar el mensaje. Inténtalo de nuevo.');

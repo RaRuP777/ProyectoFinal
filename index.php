@@ -186,11 +186,11 @@ require_once 'includes/header.php';
                 $delay = $i * 0.1;
             ?>
             <div class="category-card card fade-in" style="animation-delay: <?= $delay ?>s; cursor: pointer;"
-                 onclick="window.location.href='<?= SITE_URL ?>/index.php?category=<?= $cat['id'] ?>#menu'">
+                 onclick="window.location.href='/index.php?category=<?= $cat['id'] ?>#menu'">
                 <!-- Imagen / Gradiente con emoji -->
                 <?php if (!empty($cat['image']) && file_exists('uploads/categories/' . $cat['image'])): ?>
                     <div class="category-card-img" style="height:150px; overflow:hidden; position:relative;">
-                        <img src="<?= SITE_URL ?>/uploads/categories/<?= htmlspecialchars($cat['image']) ?>"
+                        <img src="/uploads/categories/<?= htmlspecialchars($cat['image']) ?>"
                              alt="<?= htmlspecialchars($cat['name']) ?>"
                              style="width:100%; height:100%; object-fit:cover;">
                         <div style="position:absolute; inset:0; background: rgba(0,0,0,0.25); display:flex; align-items:center; justify-content:center; font-size:3rem;">
@@ -210,7 +210,7 @@ require_once 'includes/header.php';
                     <p class="card-text" style="font-size:0.9rem; margin-bottom:0.75rem;">
                         <?= (int)$cat['product_count'] ?> producto<?= $cat['product_count'] != 1 ? 's' : '' ?>
                     </p>
-                    <a href="<?= SITE_URL ?>/index.php?category=<?= $cat['id'] ?>#menu" class="btn btn-outline btn-sm"
+                    <a href="/index.php?category=<?= $cat['id'] ?>#menu" class="btn btn-outline btn-sm"
                        onclick="event.stopPropagation();">
                         Ver más
                     </a>
@@ -232,14 +232,14 @@ require_once 'includes/header.php';
             foreach ($sample_cats as $i => $cat):
             ?>
             <div class="category-card card fade-in" style="animation-delay: <?= $i * 0.1 ?>s; cursor:pointer;"
-                 onclick="window.location.href='<?= SITE_URL ?>/index.php?category=<?= $cat['id'] ?>#menu'">
+                 onclick="window.location.href='/index.php?category=<?= $cat['id'] ?>#menu'">
                 <div class="category-card-img" style="background: <?= $cat['gradient'] ?>; height:150px; display:flex; align-items:center; justify-content:center; font-size:4rem;">
                     <?= $cat['emoji'] ?>
                 </div>
                 <div class="card-body text-center">
                     <h3 class="card-title" style="font-size:1.1rem; margin-bottom:0.35rem;"><?= $cat['name'] ?></h3>
                     <p class="card-text" style="font-size:0.9rem; margin-bottom:0.75rem;"><?= $cat['count'] ?> productos</p>
-                    <a href="<?= SITE_URL ?>/index.php?category=<?= $cat['id'] ?>#menu" class="btn btn-outline btn-sm">Ver más</a>
+                    <a href="/index.php?category=<?= $cat['id'] ?>#menu" class="btn btn-outline btn-sm">Ver más</a>
                 </div>
             </div>
             <?php endforeach; ?>
@@ -260,7 +260,7 @@ require_once 'includes/header.php';
 
         <?php if ($selected_category_name): ?>
         <div style="text-align:center; margin-bottom:1.5rem;">
-            <a href="<?= SITE_URL ?>/index.php#menu" class="btn btn-outline btn-sm">Ver todas las categorías</a>
+            <a href="/index.php#menu" class="btn btn-outline btn-sm">Ver todas las categorías</a>
         </div>
         <?php endif; ?>
 
@@ -270,7 +270,7 @@ require_once 'includes/header.php';
             <div class="card product-card">
                 <div style="position: relative;">
                     <?php if (!empty($product['image']) && file_exists('uploads/products/' . $product['image'])): ?>
-                        <img src="<?= SITE_URL ?>/uploads/products/<?= htmlspecialchars($product['image']) ?>"
+                        <img src="/uploads/products/<?= htmlspecialchars($product['image']) ?>"
                              alt="<?= htmlspecialchars($product['name']) ?>"
                              class="card-img">
                     <?php else: ?>
@@ -311,7 +311,7 @@ require_once 'includes/header.php';
                                 </span>
                             <?php endif; ?>
                         </div>
-                        <form action="<?= SITE_URL ?>/cart.php" method="POST" style="margin:0;">
+                        <form action="/cart.php" method="POST" style="margin:0;">
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="product_id" value="<?= (int)$product['id'] ?>">
                             <input type="hidden" name="quantity" value="1">
@@ -326,7 +326,7 @@ require_once 'includes/header.php';
         </div>
 
         <div style="text-align:center; margin-top:2.5rem;">
-            <a href="<?= SITE_URL ?>/index.php#menu" class="btn btn-primary btn-lg">
+            <a href="/index.php#menu" class="btn btn-primary btn-lg">
                 <i class="fas fa-utensils"></i> Ver Menú Completo
             </a>
         </div>
@@ -349,7 +349,7 @@ require_once 'includes/header.php';
         <p style="font-size:1.1rem; opacity:0.9; max-width:500px; margin:0 auto 2rem;">
             Regístrate ahora y disfruta de tu primer pedido sin costes de envío. Oferta válida hasta fin de mes.
         </p>
-        <a href="<?= SITE_URL ?>/register.php" class="btn btn-lg" style="background:#fff; color: var(--primary-color); font-weight:700;">
+        <a href="/register.php" class="btn btn-lg" style="background:#fff; color: var(--primary-color); font-weight:700;">
             <i class="fas fa-user-plus"></i> Crear Cuenta Gratis
         </a>
     </div>

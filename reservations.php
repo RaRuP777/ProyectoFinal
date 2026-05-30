@@ -81,9 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_reservation'])
         if ($stmt->execute()) {
             set_alert('success', "¡Reserva confirmada! Tu número de reserva es: $reservation_number");
             
-            // Opcional: Enviar email de confirmación
-            // mail($email, "Confirmación de Reserva - $reservation_number", "...", "From: " . SITE_EMAIL);
-            
             redirect('/reservations.php?success=1&reservation_number=' . $reservation_number);
         } else {
             set_alert('error', 'Error al crear la reserva. Inténtalo de nuevo.');
@@ -341,11 +338,11 @@ $reservation_number = $_GET['reservation_number'] ?? '';
                     </div>
 
                     <div style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
-                        <a href="<?php echo SITE_URL; ?>/" class="btn btn-outline" style="flex: 1;">
+                        <a href="/" class="btn btn-outline" style="flex: 1;">
                             <i class="fas fa-home"></i>
                             Volver al Inicio
                         </a>
-                        <a href="<?php echo SITE_URL; ?>/#menu" class="btn btn-primary" style="flex: 1;">
+                        <a href="/#menu" class="btn btn-primary" style="flex: 1;">
                             <i class="fas fa-utensils"></i>
                             Ver Menú
                         </a>

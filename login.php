@@ -5,9 +5,9 @@ require_once 'includes/functions.php';
 // Si ya está logueado, redirigir
 if (is_logged_in()) {
     if (is_admin()) {
-        redirect(SITE_URL . '/admin/');
+        redirect('/admin/');
     } else {
-        redirect(SITE_URL . '/');
+        redirect('/');
     }
 }
 
@@ -55,10 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Redirigir según rol
             if ($user['role'] === 'admin') {
                 set_alert('success', '¡Bienvenido de nuevo, ' . $user['name'] . '!');
-                redirect(SITE_URL . '/admin/');
+                redirect('/admin/');
             } else {
                 set_alert('success', '¡Bienvenido, ' . $user['name'] . '!');
-                redirect(SITE_URL . '/');
+                redirect('/');
             }
         } else {
             // Credenciales incorrectas
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$page_title = 'Iniciar Sesión - ' . SITE_NAME;
+$page_title = 'Iniciar Sesión';
 include 'includes/header.php';
 ?>
 
@@ -82,7 +82,7 @@ include 'includes/header.php';
             <div class="auth-header">
                 <i class="fas fa-sign-in-alt"></i>
                 <h1>Iniciar Sesión</h1>
-                <p>Accede a tu cuenta de <?= SITE_NAME ?></p>
+                <p>Accede a tu cuenta de QuickOrder</p>
             </div>
 
             <form method="POST" action="" class="auth-form" id="loginForm">
@@ -132,7 +132,7 @@ include 'includes/header.php';
             </form>
 
             <div class="auth-footer">
-                <p>¿No tienes una cuenta? <a href="<?= SITE_URL ?>/register.php">Regístrate aquí</a></p>
+                <p>¿No tienes una cuenta? <a href="/register.php">Regístrate aquí</a></p>
             </div>
 
 

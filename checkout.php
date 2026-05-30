@@ -320,7 +320,7 @@ require_once 'includes/header.php';
                 </div>
 
                 <div class="checkout-actions">
-                    <a href="<?= site_url('cart.php') ?>" class="btn btn-outline">← Volver al carrito</a>
+                    <a href="cart.php" class="btn btn-outline">← Volver al carrito</a>
                     <button type="submit" class="btn btn-primary btn-lg">Confirmar pedido</button>
                 </div>
             </form>
@@ -359,7 +359,7 @@ require_once 'includes/header.php';
                 <div class="summary-note">
                     <div>✅ Pago seguro</div>
                     <div>🚚 Entrega estimada: <?= (int)get_setting('delivery_time', 30) ?> min</div>
-                    <div>📞 Soporte: <?= e((string)get_setting('site_phone', '+34 900 123 456')) ?></div>
+                    <div>📞 Soporte: +34 900 123 456</div>
                 </div>
             </div>
         </aside>

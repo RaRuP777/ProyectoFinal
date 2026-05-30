@@ -81,7 +81,7 @@ if (request_method_is('POST')) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro - QuickOrder</title>
-    <link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body.auth-page {
@@ -324,7 +324,7 @@ if (request_method_is('POST')) {
     </style>
 </head>
 <body class="auth-page">
-    <a href="<?php echo SITE_URL; ?>/index.php" class="btn btn-secondary back-home">
+    <a href="/index.php" class="btn btn-secondary back-home">
         <i class="fas fa-arrow-left"></i>
         Volver al inicio
     </a>
@@ -333,7 +333,7 @@ if (request_method_is('POST')) {
         <div class="auth-card">
             <div class="auth-header">
                 <div class="auth-logo-badge">
-                    <img src="<?php echo SITE_URL; ?>/assets/img/logo-quickorder.png" alt="QuickOrder" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <img src="/assets/img/logo-quickorder.png" alt="QuickOrder" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div class="auth-logo-fallback" style="display:none;">🍕</div>
                 </div>
                 <h1>Crea tu cuenta</h1>
@@ -342,7 +342,7 @@ if (request_method_is('POST')) {
 
             <div class="auth-body">
                 <div class="auth-tabs">
-                    <a href="<?php echo SITE_URL; ?>/login.php" class="auth-tab">
+                    <a href="/login.php" class="auth-tab">
                         <i class="fas fa-sign-in-alt"></i> Iniciar sesión
                     </a>
                     <div class="auth-tab active">
@@ -425,7 +425,7 @@ if (request_method_is('POST')) {
             </div>
 
             <div class="auth-footer">
-                <p>¿Ya tienes una cuenta? <a href="<?php echo SITE_URL; ?>/login.php">Inicia sesión aquí</a></p>
+                <p>¿Ya tienes una cuenta? <a href="/login.php">Inicia sesión aquí</a></p>
             </div>
         </div>
     </div>
