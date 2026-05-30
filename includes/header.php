@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($page_title) ? $page_title . ' - QuickOrder' : 'QuickOrder - Ordena tu comida favorita'; ?></title>
 
-    <link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/png" href="<?php echo SITE_URL; ?>/assets/img/logo-quickorder.png">
+    <link rel="icon" type="image/png" href="/assets/img/logo-quickorder.png">
 </head>
 <body>
 <?php
@@ -20,21 +20,21 @@ if (function_exists('is_logged_in') && is_logged_in() && function_exists('db_val
 ?>
     <header class="header">
         <nav class="navbar container">
-            <a href="<?php echo SITE_URL; ?>/" class="logo" aria-label="QuickOrder - Inicio">
-                <img src="<?php echo SITE_URL; ?>/assets/img/logo-quickorder.png" alt="Logo de QuickOrder" class="logo-image">
+            <a href="/" class="logo" aria-label="QuickOrder - Inicio">
+                <img src="/assets/img/logo-quickorder.png" alt="Logo de QuickOrder" class="logo-image">
                 <span class="logo-text">QuickOrder</span>
             </a>
 
             <ul class="nav-menu" id="navMenu">
-                <li><a href="<?php echo SITE_URL; ?>/" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">Inicio</a></li>
-                <li><a href="<?php echo SITE_URL; ?>/#menu" class="nav-link">Menú</a></li>
-                <li><a href="<?php echo SITE_URL; ?>/reservations.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'reservations.php' ? 'active' : ''; ?>">Reservas</a></li>
-                <li><a href="<?php echo SITE_URL; ?>/contact.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : ''; ?>">Contacto</a></li>
+                <li><a href="/" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">Inicio</a></li>
+                <li><a href="/#menu" class="nav-link">Menú</a></li>
+                <li><a href="/reservations.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'reservations.php' ? 'active' : ''; ?>">Reservas</a></li>
+                <li><a href="/contact.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : ''; ?>">Contacto</a></li>
 
                 <?php if (is_logged_in()): ?>
                     <?php if (function_exists('is_admin') && is_admin()): ?>
                         <li>
-                            <a href="<?php echo SITE_URL; ?>/admin/index.php" class="nav-link <?php echo strpos($_SERVER['PHP_SELF'], '/admin/') !== false ? 'active' : ''; ?>">
+                            <a href="/admin/index.php" class="nav-link <?php echo strpos($_SERVER['PHP_SELF'], '/admin/') !== false ? 'active' : ''; ?>">
                                 <i class="fas fa-user-shield"></i>
                                 Admin
                             </a>
@@ -42,7 +42,7 @@ if (function_exists('is_logged_in') && is_logged_in() && function_exists('db_val
                     <?php endif; ?>
 
                     <li class="cart-badge">
-                        <a href="<?php echo SITE_URL; ?>/cart.php" class="nav-link">
+                        <a href="/cart.php" class="nav-link">
                             <i class="fas fa-shopping-cart"></i>
                             <?php $cart_count = get_cart_count(); ?>
                             <?php if ($cart_count > 0): ?>
@@ -52,20 +52,20 @@ if (function_exists('is_logged_in') && is_logged_in() && function_exists('db_val
                     </li>
 
                     <li>
-                        <a href="<?php echo SITE_URL; ?>/my-orders.php" class="nav-link">
+                        <a href="/my-orders.php" class="nav-link">
                             <i class="fas fa-receipt"></i>
                             Mis Pedidos
                         </a>
                     </li>
 
                     <li>
-                        <a href="<?php echo SITE_URL; ?>/logout.php" class="btn btn-outline btn-sm">
+                        <a href="/logout.php" class="btn btn-outline btn-sm">
                             <i class="fas fa-sign-out-alt"></i>
                             Cerrar Sesión
                         </a>
                     </li>
                 <?php else: ?>
-                    <li><a href="<?php echo SITE_URL; ?>/login.php" class="btn btn-primary btn-sm">
+                    <li><a href="/login.php" class="btn btn-primary btn-sm">
                         <i class="fas fa-sign-in-alt"></i>
                         Iniciar Sesión
                     </a></li>

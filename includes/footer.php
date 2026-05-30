@@ -4,8 +4,8 @@
             <div class="footer-content">
                 <!-- Sobre Nosotros -->
                 <div class="footer-section">
-                    <a href="<?php echo SITE_URL; ?>/" class="footer-brand" aria-label="QuickOrder - Inicio">
-                        <img src="<?php echo SITE_URL; ?>/assets/img/logo-quickorder.png" alt="Logo de QuickOrder" class="footer-brand-image">
+                    <a href="/" class="footer-brand" aria-label="QuickOrder - Inicio">
+                        <img src="/assets/img/logo-quickorder.png" alt="Logo de QuickOrder" class="footer-brand-image">
                         <div class="footer-brand-text">
                             <h4>QuickOrder</h4>
                             <span>Pedido rápido y experiencia visual consistente</span>
@@ -26,11 +26,11 @@
                 <div class="footer-section">
                     <h4>Enlaces Rápidos</h4>
                     <div class="footer-links">
-                        <a href="<?php echo SITE_URL; ?>/" class="footer-link">Inicio</a>
-                        <a href="<?php echo SITE_URL; ?>/#menu" class="footer-link">Menú</a>
-                        <a href="<?php echo SITE_URL; ?>/reservations.php" class="footer-link">Reservas</a>
-                        <a href="<?php echo SITE_URL; ?>/contact.php" class="footer-link">Contacto</a>
-                        <a href="<?php echo SITE_URL; ?>/my-orders.php" class="footer-link">Mis Pedidos</a>
+                        <a href="/" class="footer-link">Inicio</a>
+                        <a href="/#menu" class="footer-link">Menú</a>
+                        <a href="/reservations.php" class="footer-link">Reservas</a>
+                        <a href="/contact.php" class="footer-link">Contacto</a>
+                        <a href="/my-orders.php" class="footer-link">Mis Pedidos</a>
                     </div>
                 </div>
 
