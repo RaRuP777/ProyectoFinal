@@ -12,16 +12,16 @@ if (session_status() === PHP_SESSION_NONE) {
 // =============================================
 // CONFIGURACIÓN DE BASE DE DATOS
 // =============================================
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'quickorder');
+define('DB_HOST', 'sql103.infinityfree.com');
+define('DB_USER', 'if0_42019142');
+define('DB_PASS', 'PW8093wp');
+define('DB_NAME', 'if0_42019142_quickorder');
 
 // =============================================
 // CONFIGURACIÓN DEL SITIO
 // =============================================
 define('SITE_NAME', 'QuickOrder');
-define('SITE_URL', 'http://localhost/QuickOrder');
+define('SITE_URL', 'http://quickorder.infinityfree.me');
 define('SITE_EMAIL', 'info@quickorder.com');
 define('SITE_PHONE', '+34 900 000 000');
 
