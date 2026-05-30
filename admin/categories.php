@@ -59,7 +59,7 @@ if (request_method_is('POST') && (string)($_POST['action'] ?? '') === 'save_cate
             $ok = db_query($sql);
             if ($ok) {
                 set_alert('success', 'Categoría actualizada correctamente.');
-                redirect('admin/categories.php');
+                redirect('https://quickorder.infinityfree.me/admin/categories.php');
             }
             $errors[] = 'No se pudo actualizar la categoría.';
         } else {
@@ -68,7 +68,7 @@ if (request_method_is('POST') && (string)($_POST['action'] ?? '') === 'save_cate
             $ok = db_query($sql);
             if ($ok) {
                 set_alert('success', 'Categoría creada correctamente.');
-                redirect('admin/categories.php');
+                redirect('https://quickorder.infinityfree.me/admin/categories.php');
             }
             $errors[] = 'No se pudo crear la categoría.';
         }
@@ -143,7 +143,7 @@ admin_render_start($page_title, 'categories');
             <div class="admin-form-actions">
                 <button class="admin-btn primary" type="submit"><i class="fas fa-save"></i> <?php echo $editCategory ? 'Guardar cambios' : 'Crear categoría'; ?></button>
                 <?php if ($editCategory): ?>
-                    <a class="admin-btn light" href="<?php echo SITE_URL; ?>/admin/categories.php"><i class="fas fa-rotate-left"></i> Cancelar edición</a>
+                    <a class="admin-btn light" href="/admin/categories.php"><i class="fas fa-rotate-left"></i> Cancelar edición</a>
                 <?php endif; ?>
             </div>
         </form>
@@ -172,7 +172,7 @@ admin_render_start($page_title, 'categories');
                         <tr>
                             <td>
                                 <?php if (!empty($category['image'])): ?>
-                                    <img class="admin-thumb" src="<?php echo SITE_URL; ?>/uploads/categories/<?php echo e($category['image']); ?>" alt="<?php echo e($category['name']); ?>">
+                                    <img class="admin-thumb" src="/uploads/categories/<?php echo e($category['image']); ?>" alt="<?php echo e($category['name']); ?>">
                                 <?php else: ?>
                                     <div class="admin-thumb" style="display:grid;place-items:center;font-weight:800;color:#ff6b35;">CAT</div>
                                 <?php endif; ?>
@@ -184,7 +184,7 @@ admin_render_start($page_title, 'categories');
                             <td><?php echo (int)$category['product_count']; ?></td>
                             <td><?php echo (int)$category['sort_order']; ?></td>
                             <td>
-                                <a class="admin-btn secondary" href="<?php echo SITE_URL; ?>/admin/categories.php?edit=<?php echo (int)$category['id']; ?>">
+                                <a class="admin-btn secondary" href="/admin/categories.php?edit=<?php echo (int)$category['id']; ?>">
                                     <i class="fas fa-pen"></i> Editar
                                 </a>
                             </td>

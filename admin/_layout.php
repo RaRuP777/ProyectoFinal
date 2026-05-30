@@ -44,7 +44,7 @@ if (!function_exists('admin_render_start')) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo e($pageTitle . ' - ' . $siteName); ?></title>
-    <link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="<?php echo SITE_URL; ?>/assets/img/logo-quickorder.png">
     <style>
@@ -182,8 +182,8 @@ if (!function_exists('admin_render_start')) {
 <body class="admin-body">
     <header class="admin-topbar">
         <div class="admin-topbar-inner">
-            <a class="admin-brand" href="<?php echo SITE_URL; ?>/admin/index.php">
-                <img src="<?php echo SITE_URL; ?>/assets/img/logo-quickorder.png" alt="Logo QuickOrder">
+            <a class="admin-brand" href="/admin/index.php">
+                <img src="/assets/img/logo-quickorder.png" alt="Logo QuickOrder">
                 <div>
                     <strong>Panel Admin · QuickOrder</strong>
                     <small>Gestión restringida a catálogo, pedidos y reservas</small>
@@ -191,19 +191,20 @@ if (!function_exists('admin_render_start')) {
             </a>
             <div class="admin-top-actions">
                 <span class="admin-user-chip"><i class="fas fa-user-shield"></i> <?php echo e($userName); ?></span>
-                <a class="admin-btn light" href="<?php echo SITE_URL; ?>/index.php"><i class="fas fa-arrow-left"></i> Volver a la web</a>
-                <a class="admin-btn primary" href="<?php echo SITE_URL; ?>/logout.php"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+                <a class="admin-btn light" href="/index.php"><i class="fas fa-arrow-left"></i> Volver a la web</a>
+                <a class="admin-btn primary" href="/logout.php"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
             </div>
         </div>
     </header>
     <div class="admin-shell">
         <aside class="admin-sidebar">
             <div class="admin-sidebar-title">Administración</div>
-            <?php echo admin_sidebar_link(SITE_URL . '/admin/index.php', 'fa-gauge-high', 'Resumen', 'dashboard', $activeKey); ?>
-            <?php echo admin_sidebar_link(SITE_URL . '/admin/categories.php', 'fa-layer-group', 'Categorías', 'categories', $activeKey); ?>
-            <?php echo admin_sidebar_link(SITE_URL . '/admin/products.php', 'fa-burger', 'Productos', 'products', $activeKey); ?>
-            <?php echo admin_sidebar_link(SITE_URL . '/admin/orders.php', 'fa-receipt', 'Pedidos', 'orders', $activeKey); ?>
-            <?php echo admin_sidebar_link(SITE_URL . '/admin/reservations.php', 'fa-calendar-check', 'Reservas', 'reservations', $activeKey); ?>
+            <?php echo admin_sidebar_link('/admin/index.php', 'fa-gauge-high', 'Resumen', 'dashboard', $activeKey); ?>
+            <?php echo admin_sidebar_link('/admin/categories.php', 'fa-layer-group', 'Categorías', 'categories', $activeKey); ?>
+            <?php echo admin_sidebar_link('/admin/products.php', 'fa-burger', 'Productos', 'products', $activeKey); ?>
+            <?php echo admin_sidebar_link('/admin/orders.php', 'fa-receipt', 'Pedidos', 'orders', $activeKey); ?>
+            <?php echo admin_sidebar_link('/admin/reservations.php', 'fa-calendar-check', 'Reservas', 'reservations', $activeKey); ?>
+            <?php echo admin_sidebar_link('/admin/messages.php', 'fa-calendar-check', 'Mensajes', 'messages', $activeKey); ?>            
         </aside>
         <main class="admin-main">
             <?php if ($alert): ?>

@@ -5,9 +5,9 @@ require_once 'includes/functions.php';
 // Si ya está logueado, redirigir
 if (is_logged_in()) {
     if (is_admin()) {
-        redirect('/admin/');
+        redirect('https://quickorder.infinityfree.me/admin/');
     } else {
-        redirect('/');
+        redirect('https://quickorder.infinityfree.me/');
     }
 }
 
@@ -55,10 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Redirigir según rol
             if ($user['role'] === 'admin') {
                 set_alert('success', '¡Bienvenido de nuevo, ' . $user['name'] . '!');
-                redirect('/admin/');
+                redirect('https://quickorder.infinityfree.me/admin/');
             } else {
                 set_alert('success', '¡Bienvenido, ' . $user['name'] . '!');
-                redirect('/');
+                redirect('https://quickorder.infinityfree.me/');
             }
         } else {
             // Credenciales incorrectas

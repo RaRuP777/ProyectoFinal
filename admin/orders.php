@@ -36,7 +36,7 @@ if (request_method_is('POST') && (string)($_POST['action'] ?? '') === 'update_or
         $sql = "UPDATE orders SET status='" . db_escape($newStatus) . "', updated_at=NOW() WHERE id=$orderId LIMIT 1";
         if (db_query($sql)) {
             set_alert('success', 'Estado del pedido actualizado correctamente.');
-            $redirect = 'admin/orders.php';
+            $redirect = 'https://quickorder.infinityfree.me/admin/orders.php';
             if ($statusFilter !== '' && isset($validStatuses[$statusFilter])) {
                 $redirect .= '?status=' . urlencode($statusFilter);
             }
@@ -91,7 +91,7 @@ admin_render_start($page_title, 'orders');
             </select>
             <button class="admin-btn secondary" type="submit"><i class="fas fa-filter"></i> Filtrar</button>
             <?php if ($statusFilter !== ''): ?>
-                <a class="admin-btn light" href="<?php echo SITE_URL; ?>/admin/orders.php"><i class="fas fa-xmark"></i> Limpiar</a>
+                <a class="admin-btn light" href="/admin/orders.php"><i class="fas fa-xmark"></i> Limpiar</a>
             <?php endif; ?>
         </form>
     </div>

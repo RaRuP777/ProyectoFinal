@@ -1,7 +1,7 @@
 <?php
 // ============================================================
 // QuickOrder — order-detail.php
-// Detalle de pedido robusto, null-safe y con estilo tipo mockup
+// Contenido del carrito
 // ============================================================
 
 require_once 'includes/config.php';

@@ -83,7 +83,7 @@ if (request_method_is('POST') && (string)($_POST['action'] ?? '') === 'save_prod
             $ok = db_query($sql);
             if ($ok) {
                 set_alert('success', 'Producto actualizado correctamente.');
-                redirect('admin/products.php');
+                redirect('https://quickorder.infinityfree.me/admin/products.php');
             }
             $errors[] = 'No se pudo actualizar el producto.';
         } else {
@@ -92,7 +92,7 @@ if (request_method_is('POST') && (string)($_POST['action'] ?? '') === 'save_prod
             $ok = db_query($sql);
             if ($ok) {
                 set_alert('success', 'Producto creado correctamente.');
-                redirect('admin/products.php');
+                redirect('https://quickorder.infinityfree.me/admin/products.php');
             }
             $errors[] = 'No se pudo crear el producto.';
         }
@@ -198,7 +198,7 @@ admin_render_start($page_title, 'products');
             <div class="admin-form-actions">
                 <button class="admin-btn primary" type="submit"><i class="fas fa-save"></i> <?php echo $editProduct ? 'Guardar cambios' : 'Crear producto'; ?></button>
                 <?php if ($editProduct): ?>
-                    <a class="admin-btn light" href="<?php echo SITE_URL; ?>/admin/products.php"><i class="fas fa-rotate-left"></i> Cancelar edición</a>
+                    <a class="admin-btn light" href="/admin/products.php"><i class="fas fa-rotate-left"></i> Cancelar edición</a>
                 <?php endif; ?>
             </div>
         </form>
@@ -228,7 +228,7 @@ admin_render_start($page_title, 'products');
                         <tr>
                             <td>
                                 <?php if (!empty($product['image'])): ?>
-                                    <img class="admin-thumb" src="<?php echo SITE_URL; ?>/uploads/products/<?php echo e($product['image']); ?>" alt="<?php echo e($product['name']); ?>">
+                                    <img class="admin-thumb" src="/uploads/products/<?php echo e($product['image']); ?>" alt="<?php echo e($product['name']); ?>">
                                 <?php else: ?>
                                     <div class="admin-thumb" style="display:grid;place-items:center;font-weight:800;color:#ff6b35;">PROD</div>
                                 <?php endif; ?>
@@ -249,7 +249,7 @@ admin_render_start($page_title, 'products');
                             </td>
                             <td><?php echo (int)$product['stock']; ?></td>
                             <td>
-                                <a class="admin-btn secondary" href="<?php echo SITE_URL; ?>/admin/products.php?edit=<?php echo (int)$product['id']; ?>"><i class="fas fa-pen"></i> Editar</a>
+                                <a class="admin-btn secondary" href="/admin/products.php?edit=<?php echo (int)$product['id']; ?>"><i class="fas fa-pen"></i> Editar</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_reservation'])
         if ($stmt->execute()) {
             set_alert('success', "¡Reserva confirmada! Tu número de reserva es: $reservation_number");
             
-            redirect('/reservations.php?success=1&reservation_number=' . $reservation_number);
+            redirect('https://quickorder.infinityfree.me/reservations.php?success=1&reservation_number=' . $reservation_number);
         } else {
             set_alert('error', 'Error al crear la reserva. Inténtalo de nuevo.');
         }

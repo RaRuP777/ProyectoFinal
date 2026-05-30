@@ -1,7 +1,6 @@
 <?php
 // ============================================================
 // QuickOrder — checkout.php
-// Checkout corregido: null-safe + estilo tipo mockup + creación de pedido
 // ============================================================
 
 require_once 'includes/config.php';
@@ -12,7 +11,7 @@ ensure_cart_exists();
 
 if (!has_cart_items()) {
     set_alert('error', 'Tu carrito está vacío. Añade productos antes de finalizar el pedido.');
-    redirect('cart.php');
+    redirect('https://quickorder.infinityfree.me/cart.php');
 }
 
 $page_title = 'Checkout';
@@ -47,7 +46,7 @@ $currency      = (string)get_setting('currency_symbol', '€');
 
 if ($subtotal < $min_order) {
     set_alert('error', 'El pedido mínimo es de ' . format_price($min_order) . '.');
-    redirect('cart.php');
+    redirect('https://quickorder.infinityfree.me/cart.php');
 }
 
 // ============================================================
@@ -200,7 +199,7 @@ if (request_method_is('POST')) {
             mysqli_commit($conn);
             clear_cart();
             set_alert('success', 'Pedido confirmado correctamente. Nº ' . $order_number);
-            redirect('my-orders.php');
+            redirect('https://quickorder.infinityfree.me/my-orders.php');
         } catch (Throwable $e) {
             mysqli_rollback($conn);
             $errors['general'] = $e->getMessage();

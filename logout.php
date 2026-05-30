@@ -33,5 +33,5 @@ session_start();
 set_alert('success', '¡Hasta pronto, ' . $user_name . '!');
 
 // Redirigir al inicio
-redirect('/');
+redirect('https://quickorder.infinityfree.me');
 ?>

@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt->execute()) {
             set_alert('success', '¡Mensaje enviado exitosamente! Te responderemos pronto.');
             
-            redirect('/contact.php');
+            redirect('https://quickorder.infinityfree.me/contact.php');
         } else {
             set_alert('error', 'Error al enviar el mensaje. Inténtalo de nuevo.');
         }

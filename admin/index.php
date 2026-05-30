@@ -50,8 +50,8 @@ admin_render_start($page_title, 'dashboard');
         <h2 style="margin-bottom:.5rem;">Gestión del catálogo</h2>
         <p class="admin-note" style="margin-bottom:1rem;">Añade nuevas categorías, modifica las existentes y administra el catálogo de productos con imagen, precio, stock y destacados.</p>
         <div class="admin-form-actions">
-            <a class="admin-btn primary" href="<?php echo SITE_URL; ?>/admin/categories.php"><i class="fas fa-layer-group"></i> Gestionar categorías</a>
-            <a class="admin-btn light" href="<?php echo SITE_URL; ?>/admin/products.php"><i class="fas fa-burger"></i> Gestionar productos</a>
+            <a class="admin-btn primary" href="/admin/categories.php"><i class="fas fa-layer-group"></i> Gestionar categorías</a>
+            <a class="admin-btn light" href="/admin/products.php"><i class="fas fa-burger"></i> Gestionar productos</a>
         </div>
     </div>
     <div class="admin-card admin-highlight">
@@ -81,7 +81,7 @@ admin_render_start($page_title, 'dashboard');
                 <h2 style="margin:0;">Últimos pedidos</h2>
                 <p>Acceso rápido para cambiar estados.</p>
             </div>
-            <a class="admin-btn secondary" href="<?php echo SITE_URL; ?>/admin/orders.php"><i class="fas fa-arrow-right"></i> Ver todos</a>
+            <a class="admin-btn secondary" href="/admin/orders.php"><i class="fas fa-arrow-right"></i> Ver todos</a>
         </div>
 
         <?php if (empty($recentOrders)): ?>
@@ -121,7 +121,7 @@ admin_render_start($page_title, 'dashboard');
                 <h2 style="margin:0;">Próximas reservas</h2>
                 <p>Solo visualización, sin editar.</p>
             </div>
-            <a class="admin-btn secondary" href="<?php echo SITE_URL; ?>/admin/reservations.php"><i class="fas fa-arrow-right"></i> Ver todas</a>
+            <a class="admin-btn secondary" href="/admin/reservations.php"><i class="fas fa-arrow-right"></i> Ver todas</a>
         </div>
 
         <?php if (empty($upcomingReservations)): ?>

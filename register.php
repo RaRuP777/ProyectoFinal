@@ -67,7 +67,7 @@ if (request_method_is('POST')) {
 
             if (db_query($sql)) {
                 set_alert('success', 'Cuenta creada correctamente. Ya puedes iniciar sesión.');
-                redirect('login.php');
+                redirect('https://quickorder.infinityfree.me');
             } else {
                 $errors['general'] = 'No se ha podido crear la cuenta en este momento. Inténtalo de nuevo.';
             }

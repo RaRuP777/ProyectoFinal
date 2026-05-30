@@ -9,17 +9,8 @@ require_admin();
 
 $page_title = 'Reservas';
 $statusFilter = trim((string)($_GET['status'] ?? ''));
-$validStatuses = [
-    'pending' => 'Pendiente',
-    'confirmed' => 'Confirmada',
-    'cancelled' => 'Cancelada',
-    'completed' => 'Completada',
-];
 
 $where = '';
-if ($statusFilter !== '' && isset($validStatuses[$statusFilter])) {
-    $where = "WHERE r.status='" . db_escape($statusFilter) . "'";
-}
 
 $reservations = db_all("SELECT r.*, u.name AS user_name, u.email AS user_email
                         FROM reservations r
@@ -44,18 +35,6 @@ admin_render_start($page_title, 'reservations');
             <h2 style="margin:0;">Reservas registradas</h2>
             <p class="admin-note" style="margin:.35rem 0 0;">Consulta rápida de fechas, turnos y observaciones.</p>
         </div>
-        <form class="admin-inline-form" method="get">
-            <select name="status">
-                <option value="">Todos los estados</option>
-                <?php foreach ($validStatuses as $value => $label): ?>
-                    <option value="<?php echo e($value); ?>" <?php echo $statusFilter === $value ? 'selected' : ''; ?>><?php echo e($label); ?></option>
-                <?php endforeach; ?>
-            </select>
-            <button class="admin-btn secondary" type="submit"><i class="fas fa-filter"></i> Filtrar</button>
-            <?php if ($statusFilter !== ''): ?>
-                <a class="admin-btn light" href="<?php echo SITE_URL; ?>/admin/reservations.php"><i class="fas fa-xmark"></i> Limpiar</a>
-            <?php endif; ?>
-        </form>
     </div>
 
     <?php if (empty($reservations)): ?>
@@ -70,7 +49,6 @@ admin_render_start($page_title, 'reservations');
                         <th>Fecha y hora</th>
                         <th>Comensales</th>
                         <th>Preferencia</th>
-                        <th>Estado</th>
                         <th>Observaciones</th>
                     </tr>
                 </thead>
@@ -92,7 +70,6 @@ admin_render_start($page_title, 'reservations');
                         </td>
                         <td><?php echo (int)$reservation['guests']; ?></td>
                         <td><?php echo e($reservation['table_preference'] ?: 'Sin preferencia'); ?></td>
-                        <td><?php echo reservation_status_badge((string)$reservation['status']); ?></td>
                         <td>
                             <span class="admin-note"><?php echo e($reservation['special_requests'] ?: $reservation['notes'] ?: 'Sin observaciones'); ?></span>
                         </td>
